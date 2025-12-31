@@ -1,0 +1,103 @@
+.languageSwitcher {
+  position: relative;
+  margin-left: 20px;
+  display: inline-block;
+  font-family: inherit; /* Убедимся, что используем правильный шрифт */
+  z-index: 1;
+}
+
+.languageButton {
+  background-color: #10b981; /* Изумрудный цвет */
+  color: white;
+  border: none;
+  padding: 2px 4px; /* Еще больше уменьшаем отступы */
+  border-radius: 4px;
+  font-size: 10px; /* Еще уменьшаем размер шрифта */
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 2px; /* Еще уменьшаем расстояние между элементами */
+  min-width: 50px; /* Еще уменьшаем минимальную ширину */
+  justify-content: space-between;
+  font-family: inherit; /* Убедимся, что используем правильный шрифт */
+}
+
+.languageButton:hover {
+  background-color: #059669; /* Темнее изумрудный */
+}
+
+.languageButton:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.5);
+}
+
+.languageFlag {
+  font-size: 12px; /* Еще уменьшаем размер флага */
+  display: inline-block;
+}
+
+.languageCode {
+  font-weight: bold;
+  display: inline-block;
+  font-size: 10px; /* Еще уменьшаем размер текста */
+}
+
+.arrow {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  margin-left: 2px; /* Еще уменьшаем отступ */
+  vertical-align: middle;
+  border-top: 3px solid white; /* Еще уменьшаем размер стрелки */
+  border-right: 3px solid transparent;
+  border-left: 3px solid transparent;
+}
+
+.arrowUp {
+  transform: rotate(180deg);
+}
+
+.arrowDown {
+  transform: rotate(0deg);
+}
+
+.dropdown {
+  position: fixed;
+  background-color: #1e1e1e; /* Темный фон как в приложении */
+  border: 1px solid rgba(16, 185, 129, 0.3); /* Изумрудная граница */
+  border-radius: 4px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -1px rgba(0, 0, 0, 0.3);
+  min-width: 50px; /* Уменьшаем минимальную ширину до размера кнопки */
+  z-index: 9999; /* Максимальный z-index для уверенности */
+  font-family: inherit; /* Убедимся, что используем правильный шрифт */
+  max-height: 80px; /* Уменьшаем максимальную высоту */
+  overflow-y: auto; /* Добавляем прокрутку при необходимости */
+  margin: 0; /* Убираем отступы, так как позиционирование фиксированное */
+}
+
+.dropdownItem {
+  padding: 4px 6px; /* Еще уменьшаем отступы */
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 2px; /* Еще уменьшаем расстояние между флагом и текстом */
+  color: #f0f0f0; /* Светлый цвет текста как в приложении */
+  border-bottom: 1px solid rgba(16, 185, 129, 0.1); /* Изумрудная граница */
+}
+
+.dropdownItem:last-child {
+  border-bottom: none; /* Уберем границу у последнего элемента */
+}
+
+.dropdownItem:hover {
+  background-color: rgba(16, 185, 129, 0.2); /* Изумрудный фон при наведении */
+}
+
+.dropdownItem.active {
+  background-color: rgba(16, 185, 129, 0.3); /* Более темный изумрудный фон для активного элемента */
+  color: #f0f0f0; /* Светлый цвет текста для активного элемента */
+}
+
+.dropdownItem.active .languageFlag {
+  color: #f0f0f0; /* Светлый цвет флага для активного элемента */
+}
