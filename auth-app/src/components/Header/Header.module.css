@@ -1,12 +1,12 @@
 .header {
-  background-color: #1a1a1a;
+  background-color: var(--card-bg);
   padding: 16px 40px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 2px 4px var(--shadow);
   position: relative;
-  border-bottom: 1px solid rgba(16, 185, 129, 0.2);
+  border-bottom: 1px solid var(--border-color-transparent);
 }
 
 /* Адаптивность для хедера */
@@ -45,7 +45,7 @@
   left: 0;
   width: 100%;
   height: 2px;
-  background: linear-gradient(90deg, transparent, rgba(16, 185, 129, 0.3), transparent);
+  background: linear-gradient(90deg, transparent, var(--primary-color-transparent), transparent);
 }
 
 .navLeft {
@@ -58,7 +58,7 @@
 .navBrand {
   font-size: 24px;
   font-weight: bold;
-  color: rgb(16, 185, 129);
+  color: var(--primary-color);
   text-decoration: none;
   display: flex;
   align-items: center;
@@ -68,7 +68,7 @@
 }
 
 .navBrand:hover {
-  text-shadow: 0 0 10px rgba(16, 185, 129, 0.7);
+  text-shadow: 0 0 10px var(--primary-shadow-heavy);
   transform: scale(1.05);
 }
 
@@ -79,7 +79,7 @@
   height: 2px;
   bottom: -5px;
   left: 0;
-  background-color: rgb(16, 185, 129);
+  background-color: var(--primary-color);
   transform: scaleX(0);
   transform-origin: right;
   transition: transform 0.3s ease;
@@ -98,7 +98,7 @@
 }
 
 .navLink {
-  color: #f0f0f0;
+  color: var(--text-color);
   text-decoration: none;
   padding: 8px 12px;
   border-radius: 4px;
@@ -107,6 +107,10 @@
   position: relative;
   overflow: hidden;
   border: 1px solid transparent;
+  background: transparent;
+  cursor: pointer;
+  font-size: inherit;
+  display: inline-block;
 }
 
 .navLink::before {
@@ -116,7 +120,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(16, 185, 129, 0.1);
+  background: var(--primary-color-light);
   z-index: -1;
   transition: opacity 0.3s ease;
   opacity: 0;
@@ -127,15 +131,24 @@
 }
 
 .navLink:hover {
-  background-color: #333;
-  border-color: rgba(16, 185, 129, 0.5);
+  background-color: var(--hover-bg);
+  border-color: var(--primary-color-transparent-medium);
   transform: scale(1.05);
 }
 
 .navLink.active {
-  background-color: rgb(16, 185, 129);
+  background-color: var(--primary-color);
   color: white;
-  border-color: rgba(16, 185, 129, 0.8);
+  border-color: var(--primary-color-transparent-heavy);
+}
+
+.navLink:global(button) {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  color: var(--text-color);
+  padding: 8px 12px;
+  font-size: inherit;
 }
 
 .navRight {

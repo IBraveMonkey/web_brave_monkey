@@ -10,7 +10,7 @@
 .pageTitle {
   text-align: center;
   margin-bottom: 30px;
-  color: #f0f0f0;
+  color: var(--text-color);
   font-size: 28px;
 }
 
@@ -25,11 +25,11 @@
 }
 
 .categoryTitle {
-  color: #f0f0f0;
+  color: var(--text-color);
   margin-bottom: 15px;
   font-size: 22px;
   padding-bottom: 10px;
-  border-bottom: 1px solid rgba(16, 185, 129, 0.3);
+  border-bottom: 1px solid var(--primary-color-transparent);
 }
 
 .providersList {
@@ -39,17 +39,17 @@
 }
 
 .providerCard {
-  background-color: #1e1e1e;
+  background-color: var(--card-bg);
   border-radius: 12px;
   padding: 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--border-color);
   transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 6px var(--shadow);
   width: 100%;
   box-sizing: border-box;
 }
@@ -61,7 +61,7 @@
   left: -2px;
   right: -2px;
   bottom: -2px;
-  background: linear-gradient(45deg, rgba(16, 185, 129, 0.01), rgba(16, 185, 129, 0.02), rgba(16, 185, 129, 0.01), rgba(16, 185, 129, 0.02));
+  background: linear-gradient(45deg, var(--primary-color-light), rgba(16, 185, 129, 0.02), var(--primary-color-light), rgba(16, 185, 129, 0.02));
   z-index: -1;
   border-radius: 10px;
   opacity: 0.01;
@@ -69,8 +69,8 @@
 }
 
 .providerCard:hover {
-  border-color: rgb(16, 185, 129);
-  box-shadow: 0 8px 16px rgba(16, 185, 129, 0.3);
+  border-color: var(--primary-color);
+  box-shadow: 0 8px 16px var(--primary-shadow);
   transform: scale(1.02);
 }
 
@@ -92,11 +92,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: rgb(16, 185, 129);
+  color: var(--primary-color);
 }
 
 .providerName {
-  color: #f0f0f0;
+  color: var(--text-color);
   font-weight: 500;
 }
 
@@ -108,13 +108,13 @@
 }
 
 .statusIndicator.active {
-  background-color: rgba(16, 185, 129, 0.2);
-  color: rgb(16, 185, 129);
+  background-color: var(--primary-color-light);
+  color: var(--primary-color);
 }
 
 .statusIndicator.inactive {
   background-color: rgba(255, 107, 107, 0.2);
-  color: #ff6b6b;
+  color: var(--danger-color);
 }
 
 /* Адаптивные стили для статуса API */

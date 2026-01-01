@@ -78,6 +78,41 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
+  const forgotPassword = async (email: string): Promise<boolean> => {
+    try {
+      const response = await apiClient.post('/auth/forgot-password', { email });
+      return response.success;
+    } catch (error) {
+      console.error('Forgot password error:', error);
+      return false;
+    }
+  };
+
+  const resetPassword = async (token: string, newPassword: string): Promise<boolean> => {
+    try {
+      const response = await apiClient.post('/auth/reset-password', { token, newPassword });
+      return response.success;
+    } catch (error) {
+      console.error('Reset password error:', error);
+      return false;
+    }
+  };
+
+  const updateEmail = async (newEmail: string): Promise<boolean> => {
+    try {
+      const response = await apiClient.put('/auth/update-email', { newEmail });
+      if (response.success && response.data) {
+        // Update the user in context with new email
+        setUser(prev => prev ? { ...prev, email: newEmail } : null);
+        return true;
+      }
+      return false;
+    } catch (error) {
+      console.error('Update email error:', error);
+      return false;
+    }
+  };
+
   const logout = () => {
     localStorage.removeItem('token');
     setUser(null);
@@ -89,6 +124,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     logout,
     register,
     verifyEmail,
+    forgotPassword,
+    resetPassword,
+    updateEmail,
     isAuthenticated: !!user,
     loading,
   };

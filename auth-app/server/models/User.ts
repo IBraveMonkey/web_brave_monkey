@@ -17,9 +17,17 @@ export interface VerificationCode {
   expiresAt: Date;
 }
 
+// Password reset token interface
+export interface PasswordResetToken {
+  userId: string;
+  token: string;
+  expiresAt: Date;
+}
+
 // In-memory storage (will be replaced with Postgres later)
 let users: User[] = [];
 let verificationCodes: VerificationCode[] = [];
+let passwordResetTokens: PasswordResetToken[] = [];
 
 // Data access layer - this will be replaced with Postgres implementation later
 export const userDataStore = {
@@ -83,5 +91,52 @@ export const userDataStore = {
   // Remove verification code after use
   removeCode: (code: string): void => {
     verificationCodes = verificationCodes.filter(vc => vc.code !== code);
+  },
+
+  // Create password reset token
+  createPasswordResetToken: (userId: string): string => {
+    // Remove any existing reset tokens for this user
+    passwordResetTokens = passwordResetTokens.filter(prt => prt.userId !== userId);
+
+    // Generate a unique token (in a real app, use crypto for better security)
+    const token = uuidv4() + uuidv4(); // Concatenate two UUIDs for longer token
+    const newToken: PasswordResetToken = {
+      userId,
+      token,
+      expiresAt: new Date(Date.now() + 60 * 60 * 1000), // 1 hour
+    };
+
+    passwordResetTokens.push(newToken);
+    return token;
+  },
+
+  // Find password reset token
+  findPasswordResetToken: (token: string): PasswordResetToken | undefined => {
+    return passwordResetTokens.find(prt => prt.token === token && prt.expiresAt > new Date());
+  },
+
+  // Remove password reset token after use
+  removePasswordResetToken: (token: string): void => {
+    passwordResetTokens = passwordResetTokens.filter(prt => prt.token !== token);
+  },
+
+  // Update user's password
+  updatePassword: (userId: string, newPasswordHash: string): User | undefined => {
+    const userIndex = users.findIndex(user => user.id === userId);
+    if (userIndex !== -1) {
+      users[userIndex] = { ...users[userIndex], passwordHash: newPasswordHash };
+      return users[userIndex];
+    }
+    return undefined;
+  },
+
+  // Update user's email
+  updateEmail: (userId: string, newEmail: string): User | undefined => {
+    const userIndex = users.findIndex(user => user.id === userId);
+    if (userIndex !== -1) {
+      users[userIndex] = { ...users[userIndex], email: newEmail.toLowerCase() };
+      return users[userIndex];
+    }
+    return undefined;
   },
 };

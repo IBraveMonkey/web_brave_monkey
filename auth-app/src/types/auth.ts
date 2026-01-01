@@ -33,6 +33,9 @@ export interface AuthContextType {
   logout: () => void;
   register: (userData: RegisterData) => Promise<boolean>;
   verifyEmail: (code: string) => Promise<boolean>;
+  forgotPassword: (email: string) => Promise<boolean>;
+  resetPassword: (token: string, newPassword: string) => Promise<boolean>;
+  updateEmail: (newEmail: string) => Promise<boolean>;
   isAuthenticated: boolean;
   loading: boolean;
 }

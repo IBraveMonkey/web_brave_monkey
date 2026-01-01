@@ -1,0 +1,3 @@
+This is the Brave Monkey application for macOS.
+Version: 1.0.0
+Requirements: macOS 10.15 or later

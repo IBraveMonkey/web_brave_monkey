@@ -53,7 +53,12 @@ const LoginPage: React.FC = () => {
         {error && <div className={styles.formError}>{error}</div>}
         <button type="submit" className={styles.btnPrimary}>{t('auth.login')}</button>
       </form>
-      <div className={styles.formGroup} style={{ marginTop: '20px', textAlign: 'center' }}>
+      <div className={styles.formGroup} style={{ marginTop: '15px', textAlign: 'center' }}>
+        <p>
+          <Link to="/forgot-password" className={styles.formLink}>{t('auth.forgotPassword')}</Link>
+        </p>
+      </div>
+      <div className={styles.formGroup} style={{ marginTop: '10px', textAlign: 'center' }}>
         <p>
           {t('auth.dontHaveAccount')} <Link to="/register" className={styles.formLink}>{t('auth.registerHere')}</Link>
         </p>
