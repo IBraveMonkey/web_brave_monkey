@@ -135,7 +135,7 @@ const ProfilePage: React.FC = () => {
               <div className={styles.formGroup}>
                 <button
                   onClick={() => setShowChangeEmail(!showChangeEmail)}
-                  className={`${styles.btn} ${styles.btnSecondary}`}
+                  className={`${styles.btn} ${styles.btnPrimary}`}
                 >
                   {showChangeEmail ? t('profile.cancelChangeEmail') : t('profile.changeEmail')}
                 </button>
@@ -222,26 +222,6 @@ const ProfilePage: React.FC = () => {
                 <button onClick={handleLogout} className={`${styles.btn} ${styles.btnDanger || styles['btn-danger']}`}>
                   {t('profile.logout')}
                 </button>
-              </div>
-
-              <div className={styles.formGroup}>
-                <a
-                  href="/bravemonkeyMacOS.txt"
-                  download="bravemonkeyMacOS.txt"
-                  className={`${styles.btn} ${styles.btnSecondary}`}
-                >
-                  {t('download.download')} (macOS)
-                </a>
-              </div>
-
-              <div className={styles.formGroup}>
-                <a
-                  href="/bravemonkeyWin.txt"
-                  download="bravemonkeyWin.txt"
-                  className={`${styles.btn} ${styles.btnSecondary}`}
-                >
-                  {t('download.download')} (Windows)
-                </a>
               </div>
             </div>
           </div>

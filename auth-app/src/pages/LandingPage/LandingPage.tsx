@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useI18n } from '../../contexts/I18nContext';
 import styles from './LandingPage.module.css';
+import ChatDemo from '../../components/ChatDemo/ChatDemo';
 
 const LandingPage: React.FC = () => {
   const { t } = useI18n();
@@ -42,15 +43,7 @@ const LandingPage: React.FC = () => {
           </div>
         </div>
         <div className={`${styles.heroImage} ${animatedElements.includes(2) ? styles.animateIn : ''}`}>
-          <div className={styles.mockupContainer}>
-            <div className={styles.screenMockup}>
-              <div className={styles.screenContent}>
-                <div className={styles.overlayElement}></div>
-                <div className={styles.overlayElement}></div>
-                <div className={styles.overlayElement}></div>
-              </div>
-            </div>
-          </div>
+          <ChatDemo />
         </div>
       </section>
 
@@ -71,11 +64,6 @@ const LandingPage: React.FC = () => {
             <p className={styles.featureDescription}>{t('landing.feature2Desc')}</p>
           </div>
           <div className={`${styles.featureCard} ${animatedElements.includes(3) ? styles.animateIn : ''}`}>
-            <div className={styles.featureIcon}>🔒</div>
-            <h3 className={styles.featureTitle}>{t('landing.feature3Title')}</h3>
-            <p className={styles.featureDescription}>{t('landing.feature3Desc')}</p>
-          </div>
-          <div className={`${styles.featureCard} ${animatedElements.includes(4) ? styles.animateIn : ''}`}>
             <div className={styles.featureIcon}>🤖</div>
             <h3 className={styles.featureTitle}>{t('landing.feature4Title')}</h3>
             <p className={styles.featureDescription}>{t('landing.feature4Desc')}</p>

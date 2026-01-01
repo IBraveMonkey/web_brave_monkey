@@ -17,35 +17,43 @@ const DownloadPage: React.FC = () => {
 
   return (
     <div className={styles.container}>
-      <h1 className={styles.title}>{t('download.title')}</h1>
-      <p className={styles.subtitle}>{t('download.subtitle')}</p>
-      
+      <h1 className={styles.pageTitle}>{t('download.subtitle')}</h1>
+      <div className={styles.versionContainer}>
+        <span className={styles.versionText}>1.0.0 🍎 🪟</span>
+      </div>
+
       <div className={styles.downloadGrid}>
         <div className={styles.downloadCard}>
-          <div className={styles.platformIcon}> {/* Windows icon */ }
-            <span role="img" aria-label="windows">🪟</span>
+          <div className={styles.platformHeader}>
+            <div className={styles.platformIcon}>
+              <span role="img" aria-label="apple">🍎</span>
+            </div>
+            <div className={styles.platformInfo}>
+              <h2 className={styles.platformTitle}>{t('download.macos')}</h2>
+              <p className={styles.platformRequirements}>{t('download.macosRequirements')}</p>
+            </div>
           </div>
-          <h2 className={styles.platformTitle}>{t('download.windows')}</h2>
-          <p className={styles.platformVersion}>{t('download.windowsVersion')}</p>
-          <p className={styles.platformRequirements}>{t('download.windowsRequirements')}</p>
-          <button 
+          <button
             className={styles.downloadButton}
-            onClick={() => handleDownload('Win.txt')}
+            onClick={() => handleDownload('MacOS.txt')}
           >
             {t('download.downloadButton')}
           </button>
         </div>
-        
+
         <div className={styles.downloadCard}>
-          <div className={styles.platformIcon}> {/* macOS icon */ }
-            <span role="img" aria-label="apple">🍎</span>
+          <div className={styles.platformHeader}>
+            <div className={styles.platformIcon}>
+              <span role="img" aria-label="windows">🪟</span>
+            </div>
+            <div className={styles.platformInfo}>
+              <h2 className={styles.platformTitle}>{t('download.windows')}</h2>
+              <p className={styles.platformRequirements}>{t('download.windowsRequirements')}</p>
+            </div>
           </div>
-          <h2 className={styles.platformTitle}>{t('download.macos')}</h2>
-          <p className={styles.platformVersion}>{t('download.macosVersion')}</p>
-          <p className={styles.platformRequirements}>{t('download.macosRequirements')}</p>
-          <button 
+          <button
             className={styles.downloadButton}
-            onClick={() => handleDownload('MacOS.txt')}
+            onClick={() => handleDownload('Win.txt')}
           >
             {t('download.downloadButton')}
           </button>

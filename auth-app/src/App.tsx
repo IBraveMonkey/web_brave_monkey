@@ -49,6 +49,11 @@ function App() {
                       <ChatsPage />
                     </ProtectedRoute>
                   } />
+                  <Route path="/api-status" element={
+                    <ProtectedRoute>
+                      <APIsProviderStatus />
+                    </ProtectedRoute>
+                  } />
                 </Routes>
               </div>
               <Footer />

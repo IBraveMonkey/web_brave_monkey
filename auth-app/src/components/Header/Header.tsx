@@ -4,11 +4,12 @@ import { useAuth } from '../../contexts/AuthContext';
 import { useI18n } from '../../contexts/I18nContext';
 import LanguageSwitcher from '../LanguageSwitcher/LanguageSwitcher';
 import ThemeSwitcher from '../ThemeSwitcher/ThemeSwitcher';
+
 import styles from './Header.module.css';
 
 const Header: React.FC = () => {
   const location = useLocation();
-  const { user, logout } = useAuth();
+  const { user } = useAuth();
   const { t } = useI18n();
 
   // Функция для проверки активной ссылки
@@ -52,11 +53,12 @@ const Header: React.FC = () => {
                 {t('navigation.apiStatus')}
               </Link>
               <Link
-                to="/profile"
-                className={`${styles.navLink} ${isActive('/profile') ? styles.active : ''}`}
+                to="/download"
+                className={`${styles.navLink} ${isActive('/download') ? styles.active : ''}`}
               >
-                {t('navigation.profile')}
+                {t('navigation.download')}
               </Link>
+
             </>
           ) : (
             <>
@@ -83,6 +85,15 @@ const Header: React.FC = () => {
       <div className={styles.navRight}>
         <ThemeSwitcher />
         <LanguageSwitcher />
+        {user && (
+          <Link
+            to="/profile"
+            className={`${styles.profileLink} ${isActive('/profile') ? styles.active : ''}`}
+            title={t('navigation.profile')}
+          >
+            <span role="img" aria-label="profile">👤</span>
+          </Link>
+        )}
       </div>
     </header>
   );

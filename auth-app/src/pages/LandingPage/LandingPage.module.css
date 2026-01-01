@@ -100,65 +100,88 @@
   animation: fadeInRight 1s ease-out;
 }
 
-.mockupContainer {
-  position: relative;
+.chatContainer {
   width: 100%;
   max-width: 500px;
-}
-
-.screenMockup {
-  background: var(--bg-color);
+  height: 400px;
+  background: var(--card-bg);
   border-radius: 12px;
-  padding: 20px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
   border: 1px solid var(--border-color);
-  position: relative;
-  overflow: hidden;
-  height: 400px;
+}
+
+.chatHeader {
+  background: var(--primary-color);
+  color: white;
+  padding: 15px;
+  text-align: center;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.chatHeaderTitle {
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.chatMessages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 15px;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-direction: column;
+  gap: 15px;
+  background: var(--bg-color);
 }
 
-.screenContent {
-  position: relative;
-  width: 100%;
-  height: 100%;
+.message {
+  display: flex;
+  flex-direction: column;
+  max-width: 80%;
+  animation: messageAppear 0.5s ease-out;
+}
+
+.message:nth-child(odd) {
+  align-self: flex-start;
+}
+
+.message:nth-child(even) {
+  align-self: flex-end;
+  max-width: 85%;
+}
+
+.messageSender {
+  font-weight: bold;
+  margin-bottom: 5px;
+  font-size: 0.9rem;
+}
+
+.message:nth-child(odd) .messageSender {
+  color: var(--primary-color);
+}
+
+.message:nth-child(even) .messageSender {
+  color: #10b981; /* green color for AI responses */
+}
+
+.messageText {
   background: var(--card-bg);
-  border-radius: 8px;
-  overflow: hidden;
+  padding: 10px 15px;
+  border-radius: 18px;
+  box-shadow: 0 2px 5px var(--shadow-light);
+  line-height: 1.4;
 }
 
-.overlayElement {
-  position: absolute;
-  background: var(--primary-color-transparent-medium);
-  border: 1px solid var(--primary-color);
-  border-radius: 4px;
-  animation: pulse 2s infinite;
+.message:nth-child(odd) .messageText {
+  border-top-left-radius: 5px;
 }
 
-.overlayElement:nth-child(1) {
-  top: 20%;
-  left: 15%;
-  width: 40%;
-  height: 20%;
-  animation-delay: 0s;
-}
-
-.overlayElement:nth-child(2) {
-  top: 50%;
-  left: 30%;
-  width: 35%;
-  height: 15%;
-  animation-delay: 0.5s;
-}
-
-.overlayElement:nth-child(3) {
-  top: 70%;
-  left: 20%;
-  width: 50%;
-  height: 10%;
-  animation-delay: 1s;
+.message:nth-child(even) .messageText {
+  border-top-right-radius: 5px;
+  background: var(--primary-color-transparent-light);
+  color: var(--text-color);
 }
 
 .featuresSection {
@@ -328,6 +351,11 @@
   0% { opacity: 0.6; transform: scale(1); }
   50% { opacity: 1; transform: scale(1.05); }
   100% { opacity: 0.6; transform: scale(1); }
+}
+
+@keyframes messageAppear {
+  0% { opacity: 0; transform: translateY(10px); }
+  100% { opacity: 1; transform: translateY(0); }
 }
 
 .animateIn {

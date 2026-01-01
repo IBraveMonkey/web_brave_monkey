@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { useI18n } from '../../contexts/I18nContext';
 import LanguageSwitcher from '../LanguageSwitcher/LanguageSwitcher';
 import ThemeSwitcher from '../ThemeSwitcher/ThemeSwitcher';
+import DownloadDropdown from '../DownloadDropdown/DownloadDropdown';
 import styles from '../Header/Header.module.css';
 
 const PublicHeader: React.FC = () => {
@@ -23,12 +24,7 @@ const PublicHeader: React.FC = () => {
       </div>
       <div className={styles.navCenter}>
         <nav className={styles.navLinks}>
-          <Link
-            to="/download"
-            className={`${styles.navLink} ${isActive('/download') ? styles.active : ''}`}
-          >
-            {t('download.title')}
-          </Link>
+          <DownloadDropdown />
         </nav>
       </div>
       <div className={styles.navRight}>
