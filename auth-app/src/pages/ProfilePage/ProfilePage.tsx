@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import { useI18n } from '../../contexts/I18nContext';
+import { validatePasswordChange, validateEmail } from '../../utils/validation';
 import styles from './ProfilePage.module.css';
 
 const ProfilePage: React.FC = () => {
@@ -13,9 +14,16 @@ const ProfilePage: React.FC = () => {
   const [currentPassword, setCurrentPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmNewPassword, setConfirmNewPassword] = useState('');
+  const [showCurrentPassword, setShowCurrentPassword] = useState(false);
+  const [showNewPassword, setShowNewPassword] = useState(false);
+  const [showConfirmNewPassword, setShowConfirmNewPassword] = useState(false);
   const [newEmail, setNewEmail] = useState('');
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
+  const [currentPasswordError, setCurrentPasswordError] = useState('');
+  const [newPasswordError, setNewPasswordError] = useState('');
+  const [confirmNewPasswordError, setConfirmNewPasswordError] = useState('');
+  const [newEmailError, setNewEmailError] = useState('');
 
   const handleLogout = () => {
     logout();
@@ -27,15 +35,17 @@ const ProfilePage: React.FC = () => {
     setError('');
     setSuccess('');
 
-    // Проверка совпадения новых паролей
-    if (newPassword !== confirmNewPassword) {
-      setError(t('profile.passwordsNotMatch'));
-      return;
-    }
+    // Валидация полей
+    const validation = validatePasswordChange(currentPassword, newPassword, confirmNewPassword);
 
-    // Проверка длины пароля
-    if (newPassword.length < 6) {
-      setError(t('profile.passwordLength'));
+    if (!validation.isFormValid) {
+      if (validation.currentPassword.errorKey) {
+        setError(t(validation.currentPassword.errorKey));
+      } else if (validation.newPassword.errorKey) {
+        setError(t(validation.newPassword.errorKey));
+      } else if (validation.confirmNewPassword.errorKey) {
+        setError(t(validation.confirmNewPassword.errorKey));
+      }
       return;
     }
 
@@ -58,10 +68,11 @@ const ProfilePage: React.FC = () => {
     setError('');
     setSuccess('');
 
-    // Проверка формата email
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(newEmail)) {
-      setError(t('profile.invalidEmailFormat'));
+    // Валидация email
+    const emailValidation = validateEmail(newEmail);
+
+    if (!emailValidation.isValid) {
+      setError(emailValidation.errorKey ? t(emailValidation.errorKey) : t('profile.invalidEmailFormat'));
       return;
     }
 
@@ -147,35 +158,95 @@ const ProfilePage: React.FC = () => {
                   <form onSubmit={handleChangePassword}>
                     <div className={styles.formGroup}>
                       <label className={styles.formLabel}>{t('profile.currentPassword')}</label>
-                      <input
-                        type="password"
-                        className={styles.formInput}
-                        value={currentPassword}
-                        onChange={(e) => setCurrentPassword(e.target.value)}
-                        required
-                      />
+                      <div className={styles.passwordInputContainer}>
+                        <input
+                          type={showCurrentPassword ? "text" : "password"}
+                          className={`${styles.formInput} ${currentPasswordError ? styles.formInputError : ''}`}
+                          value={currentPassword}
+                          onChange={(e) => {
+                            setCurrentPassword(e.target.value);
+                            // Валидация в реальном времени
+                            const validation = validatePasswordChange(
+                              e.target.value,
+                              newPassword,
+                              confirmNewPassword
+                            );
+                            setCurrentPasswordError(validation.currentPassword.errorKey ? t(validation.currentPassword.errorKey) : '');
+                          }}
+                          required
+                        />
+                        <button
+                          type="button"
+                          className={styles.passwordToggle}
+                          onClick={() => setShowCurrentPassword(!showCurrentPassword)}
+                          aria-label={showCurrentPassword ? "Hide password" : "Show password"}
+                        >
+                          {showCurrentPassword ? "👁️" : "👁️‍🗨️"}
+                        </button>
+                      </div>
+                      {currentPasswordError && <div className={styles.formError}>{currentPasswordError}</div>}
                     </div>
 
                     <div className={styles.formGroup}>
                       <label className={styles.formLabel}>{t('profile.newPassword')}</label>
-                      <input
-                        type="password"
-                        className={styles.formInput}
-                        value={newPassword}
-                        onChange={(e) => setNewPassword(e.target.value)}
-                        required
-                      />
+                      <div className={styles.passwordInputContainer}>
+                        <input
+                          type={showNewPassword ? "text" : "password"}
+                          className={`${styles.formInput} ${newPasswordError ? styles.formInputError : ''}`}
+                          value={newPassword}
+                          onChange={(e) => {
+                            setNewPassword(e.target.value);
+                            // Валидация в реальном времени
+                            const validation = validatePasswordChange(
+                              currentPassword,
+                              e.target.value,
+                              confirmNewPassword
+                            );
+                            setNewPasswordError(validation.newPassword.errorKey ? t(validation.newPassword.errorKey) : '');
+                          }}
+                          required
+                        />
+                        <button
+                          type="button"
+                          className={styles.passwordToggle}
+                          onClick={() => setShowNewPassword(!showNewPassword)}
+                          aria-label={showNewPassword ? "Hide password" : "Show password"}
+                        >
+                          {showNewPassword ? "👁️" : "👁️‍🗨️"}
+                        </button>
+                      </div>
+                      {newPasswordError && <div className={styles.formError}>{newPasswordError}</div>}
                     </div>
 
                     <div className={styles.formGroup}>
                       <label className={styles.formLabel}>{t('profile.confirmNewPassword')}</label>
-                      <input
-                        type="password"
-                        className={styles.formInput}
-                        value={confirmNewPassword}
-                        onChange={(e) => setConfirmNewPassword(e.target.value)}
-                        required
-                      />
+                      <div className={styles.passwordInputContainer}>
+                        <input
+                          type={showConfirmNewPassword ? "text" : "password"}
+                          className={`${styles.formInput} ${confirmNewPasswordError ? styles.formInputError : ''}`}
+                          value={confirmNewPassword}
+                          onChange={(e) => {
+                            setConfirmNewPassword(e.target.value);
+                            // Валидация в реальном времени
+                            const validation = validatePasswordChange(
+                              currentPassword,
+                              newPassword,
+                              e.target.value
+                            );
+                            setConfirmNewPasswordError(validation.confirmNewPassword.errorKey ? t(validation.confirmNewPassword.errorKey) : '');
+                          }}
+                          required
+                        />
+                        <button
+                          type="button"
+                          className={styles.passwordToggle}
+                          onClick={() => setShowConfirmNewPassword(!showConfirmNewPassword)}
+                          aria-label={showConfirmNewPassword ? "Hide password" : "Show password"}
+                        >
+                          {showConfirmNewPassword ? "👁️" : "👁️‍🗨️"}
+                        </button>
+                      </div>
+                      {confirmNewPasswordError && <div className={styles.formError}>{confirmNewPasswordError}</div>}
                     </div>
 
                     {error && <div className={styles.formError}>{error}</div>}
@@ -198,12 +269,18 @@ const ProfilePage: React.FC = () => {
                       <label className={styles.formLabel}>{t('profile.newEmail')}</label>
                       <input
                         type="email"
-                        className={styles.formInput}
+                        className={`${styles.formInput} ${newEmailError ? styles.formInputError : ''}`}
                         value={newEmail}
-                        onChange={(e) => setNewEmail(e.target.value)}
+                        onChange={(e) => {
+                          setNewEmail(e.target.value);
+                          // Валидация в реальном времени
+                          const emailValidation = validateEmail(e.target.value);
+                          setNewEmailError(emailValidation.errorKey ? t(emailValidation.errorKey) : '');
+                        }}
                         required
                         placeholder={user?.email}
                       />
+                      {newEmailError && <div className={styles.formError}>{newEmailError}</div>}
                     </div>
 
                     {error && <div className={styles.formError}>{error}</div>}

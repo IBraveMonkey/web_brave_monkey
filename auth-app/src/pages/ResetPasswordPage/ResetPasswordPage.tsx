@@ -1,16 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams, Link } from 'react-router-dom';
 import { useI18n } from '../../contexts/I18nContext';
+import { validatePassword, validateConfirmPassword } from '../../utils/validation';
 import { apiClient } from '../../api/apiClient';
 import styles from './ResetPasswordPage.module.css';
 
 const ResetPasswordPage: React.FC = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
   const [validToken, setValidToken] = useState(true);
+  const [passwordError, setPasswordError] = useState('');
+  const [confirmPasswordError, setConfirmPasswordError] = useState('');
   const navigate = useNavigate();
   const { token } = useParams<{ token: string }>();
   const { t } = useI18n();
@@ -37,14 +42,14 @@ const ResetPasswordPage: React.FC = () => {
     setError('');
     setMessage('');
 
-    if (password !== confirmPassword) {
-      setError(t('auth.passwordsDontMatch'));
-      setLoading(false);
-      return;
-    }
+    // Валидация полей
+    const passwordValidation = validatePassword(password);
+    const confirmPasswordValidation = validateConfirmPassword(password, confirmPassword);
 
-    if (password.length < 6) {
-      setError(t('auth.passwordTooShort'));
+    setPasswordError(passwordValidation.errorKey ? t(passwordValidation.errorKey) : '');
+    setConfirmPasswordError(confirmPasswordValidation.errorKey ? t(confirmPasswordValidation.errorKey) : '');
+
+    if (!passwordValidation.isValid || !confirmPasswordValidation.isValid) {
       setLoading(false);
       return;
     }
@@ -93,28 +98,62 @@ const ResetPasswordPage: React.FC = () => {
       <form onSubmit={handleSubmit}>
         <div className={styles.formGroup}>
           <label htmlFor="password" className={styles.formLabel}>{t('auth.newPassword')}</label>
-          <input
-            id="password"
-            type="password"
-            className={styles.formInput}
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-            disabled={loading}
-          />
+          <div className={styles.passwordInputContainer}>
+            <input
+              id="password"
+              type={showPassword ? "text" : "password"}
+              className={`${styles.formInput} ${passwordError ? styles.formInputError : ''}`}
+              value={password}
+              onChange={(e) => {
+                setPassword(e.target.value);
+                // Валидация в реальном времени
+                const validation = validatePassword(e.target.value);
+                setPasswordError(validation.errorKey ? t(validation.errorKey) : '');
+              }}
+              required
+              disabled={loading}
+            />
+            <button
+              type="button"
+              className={styles.passwordToggle}
+              onClick={() => setShowPassword(!showPassword)}
+              aria-label={showPassword ? "Hide password" : "Show password"}
+              disabled={loading}
+            >
+              {showPassword ? "👁️" : "👁️‍🗨️"}
+            </button>
+          </div>
+          {passwordError && <div className={styles.formError}>{passwordError}</div>}
         </div>
 
         <div className={styles.formGroup}>
           <label htmlFor="confirmPassword" className={styles.formLabel}>{t('auth.confirmNewPassword')}</label>
-          <input
-            id="confirmPassword"
-            type="password"
-            className={styles.formInput}
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-            required
-            disabled={loading}
-          />
+          <div className={styles.passwordInputContainer}>
+            <input
+              id="confirmPassword"
+              type={showConfirmPassword ? "text" : "password"}
+              className={`${styles.formInput} ${confirmPasswordError ? styles.formInputError : ''}`}
+              value={confirmPassword}
+              onChange={(e) => {
+                setConfirmPassword(e.target.value);
+                // Валидация в реальном времени
+                const validation = validateConfirmPassword(password, e.target.value);
+                setConfirmPasswordError(validation.errorKey ? t(validation.errorKey) : '');
+              }}
+              required
+              disabled={loading}
+            />
+            <button
+              type="button"
+              className={styles.passwordToggle}
+              onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+              aria-label={showConfirmPassword ? "Hide password" : "Show password"}
+              disabled={loading}
+            >
+              {showConfirmPassword ? "👁️" : "👁️‍🗨️"}
+            </button>
+          </div>
+          {confirmPasswordError && <div className={styles.formError}>{confirmPasswordError}</div>}
         </div>
 
         {error && <div className={styles.formError}>{error}</div>}

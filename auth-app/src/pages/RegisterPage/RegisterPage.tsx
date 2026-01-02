@@ -2,13 +2,19 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import { useI18n } from '../../contexts/I18nContext';
+import { validateRegistration } from '../../utils/validation';
 import styles from './RegisterPage.module.css';
 
 const RegisterPage: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [error, setError] = useState('');
+  const [emailError, setEmailError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+  const [confirmPasswordError, setConfirmPasswordError] = useState('');
   const navigate = useNavigate();
   const { register } = useAuth();
   const { t } = useI18n();
@@ -17,8 +23,14 @@ const RegisterPage: React.FC = () => {
     e.preventDefault();
     setError('');
 
-    if (password !== confirmPassword) {
-      setError(t('profile.passwordsNotMatch'));
+    // Валидация полей
+    const validation = validateRegistration(email, password, confirmPassword);
+
+    setEmailError(validation.email.errorKey ? t(validation.email.errorKey) : '');
+    setPasswordError(validation.password.errorKey ? t(validation.password.errorKey) : '');
+    setConfirmPasswordError(validation.confirmPassword.errorKey ? t(validation.confirmPassword.errorKey) : '');
+
+    if (!validation.isFormValid) {
       return;
     }
 
@@ -40,33 +52,71 @@ const RegisterPage: React.FC = () => {
           <input
             id="email"
             type="email"
-            className={styles.formInput}
+            className={`${styles.formInput} ${emailError ? styles.formInputError : ''}`}
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(e) => {
+              setEmail(e.target.value);
+              // Валидация в реальном времени
+              const validation = validateRegistration(e.target.value, password, confirmPassword);
+              setEmailError(validation.email.errorKey ? t(validation.email.errorKey) : '');
+            }}
             required
           />
+          {emailError && <div className={styles.formError}>{emailError}</div>}
         </div>
         <div className={styles.formGroup}>
           <label htmlFor="password" className={styles.formLabel}>{t('auth.password')}</label>
-          <input
-            id="password"
-            type="password"
-            className={styles.formInput}
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
+          <div className={styles.passwordInputContainer}>
+            <input
+              id="password"
+              type={showPassword ? "text" : "password"}
+              className={`${styles.formInput} ${passwordError ? styles.formInputError : ''}`}
+              value={password}
+              onChange={(e) => {
+                setPassword(e.target.value);
+                // Валидация в реальном времени
+                const validation = validateRegistration(email, e.target.value, confirmPassword);
+                setPasswordError(validation.password.errorKey ? t(validation.password.errorKey) : '');
+              }}
+              required
+            />
+            <button
+              type="button"
+              className={styles.passwordToggle}
+              onClick={() => setShowPassword(!showPassword)}
+              aria-label={showPassword ? "Hide password" : "Show password"}
+            >
+              {showPassword ? "👁️" : "👁️‍🗨️"}
+            </button>
+          </div>
+          {passwordError && <div className={styles.formError}>{passwordError}</div>}
         </div>
         <div className={styles.formGroup}>
           <label htmlFor="confirmPassword" className={styles.formLabel}>{t('auth.confirmPassword')}</label>
-          <input
-            id="confirmPassword"
-            type="password"
-            className={styles.formInput}
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-            required
-          />
+          <div className={styles.passwordInputContainer}>
+            <input
+              id="confirmPassword"
+              type={showConfirmPassword ? "text" : "password"}
+              className={`${styles.formInput} ${confirmPasswordError ? styles.formInputError : ''}`}
+              value={confirmPassword}
+              onChange={(e) => {
+                setConfirmPassword(e.target.value);
+                // Валидация в реальном времени
+                const validation = validateRegistration(email, password, e.target.value);
+                setConfirmPasswordError(validation.confirmPassword.errorKey ? t(validation.confirmPassword.errorKey) : '');
+              }}
+              required
+            />
+            <button
+              type="button"
+              className={styles.passwordToggle}
+              onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+              aria-label={showConfirmPassword ? "Hide password" : "Show password"}
+            >
+              {showConfirmPassword ? "👁️" : "👁️‍🗨️"}
+            </button>
+          </div>
+          {confirmPasswordError && <div className={styles.formError}>{confirmPasswordError}</div>}
         </div>
         {error && <div className={styles.formError}>{error}</div>}
         <button type="submit" className={`${styles.btn} ${styles.btnPrimary}`}>{t('auth.register')}</button>

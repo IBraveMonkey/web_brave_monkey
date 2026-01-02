@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useI18n } from '../../contexts/I18nContext';
+import { validateEmail } from '../../utils/validation';
 import { apiClient } from '../../api/apiClient';
 import styles from './ForgotPasswordPage.module.css';
 
@@ -9,6 +10,7 @@ const ForgotPasswordPage: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
+  const [emailError, setEmailError] = useState('');
   const navigate = useNavigate();
   const { t } = useI18n();
 
@@ -18,9 +20,19 @@ const ForgotPasswordPage: React.FC = () => {
     setError('');
     setMessage('');
 
+    // Валидация email
+    const emailValidation = validateEmail(email);
+
+    setEmailError(emailValidation.errorKey ? t(emailValidation.errorKey) : '');
+
+    if (!emailValidation.isValid) {
+      setLoading(false);
+      return;
+    }
+
     try {
       const response = await apiClient.post('/auth/forgot-password', { email });
-      
+
       if (response.success) {
         setMessage(t('auth.passwordResetLinkSent'));
       } else {
@@ -44,17 +56,23 @@ const ForgotPasswordPage: React.FC = () => {
           <input
             id="email"
             type="email"
-            className={styles.formInput}
+            className={`${styles.formInput} ${emailError ? styles.formInputError : ''}`}
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(e) => {
+              setEmail(e.target.value);
+              // Валидация в реальном времени
+              const validation = validateEmail(e.target.value);
+              setEmailError(validation.errorKey ? t(validation.errorKey) : '');
+            }}
             required
             disabled={loading}
           />
+          {emailError && <div className={styles.formError}>{emailError}</div>}
         </div>
-        
+
         {error && <div className={styles.formError}>{error}</div>}
         {message && <div className={styles.formSuccess}>{message}</div>}
-        
+
         <button type="submit" className={styles.btnPrimary} disabled={loading}>
           {loading ? t('auth.sending') : t('auth.sendResetLink')}
         </button>

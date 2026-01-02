@@ -1,55 +1,120 @@
-// Validation utilities
-export const validateEmail = (email: string): boolean => {
+// utils/validation.ts
+
+// Валидация email
+export const validateEmail = (email: string): { isValid: boolean; errorKey?: string } => {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  return emailRegex.test(email);
+
+  if (!email) {
+    return { isValid: false, errorKey: 'validation.emailRequired' };
+  }
+
+  if (!emailRegex.test(email)) {
+    return { isValid: false, errorKey: 'validation.emailInvalid' };
+  }
+
+  return { isValid: true };
 };
 
-export const validatePassword = (password: string): boolean => {
-  // At least 8 characters, 1 uppercase, 1 lowercase, 1 number
-  const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d@$!%*?&]{8,}$/;
-  return passwordRegex.test(password);
+// Валидация пароля
+export const validatePassword = (password: string): { isValid: boolean; errorKey?: string } => {
+  if (!password) {
+    return { isValid: false, errorKey: 'validation.passwordRequired' };
+  }
+
+  if (password.length < 6) {
+    return { isValid: false, errorKey: 'validation.passwordTooShort' };
+  }
+
+  if (password.length > 128) {
+    return { isValid: false, errorKey: 'validation.passwordTooLong' };
+  }
+
+  // Проверяем, содержит ли пароль хотя бы одну цифру и одну букву
+  const hasNumber = /[0-9]/.test(password);
+  const hasLetter = /[a-zA-Z]/.test(password);
+
+  if (!hasNumber || !hasLetter) {
+    return { isValid: false, errorKey: 'validation.passwordRequirements' };
+  }
+
+  return { isValid: true };
 };
 
-export const validateConfirmPassword = (password: string, confirmPassword: string): boolean => {
-  return password === confirmPassword;
+// Валидация подтверждения пароля
+export const validateConfirmPassword = (password: string, confirmPassword: string): { isValid: boolean; errorKey?: string } => {
+  if (!confirmPassword) {
+    return { isValid: false, errorKey: 'validation.confirmPasswordRequired' };
+  }
+
+  if (password !== confirmPassword) {
+    return { isValid: false, errorKey: 'validation.passwordsNotMatch' };
+  }
+
+  return { isValid: true };
 };
 
-// Format utilities
-export const formatDate = (date: Date | string): string => {
-  return new Date(date).toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'short',
-    day: 'numeric'
-  });
+// Комбинированная валидация для регистрации
+export const validateRegistration = (
+  email: string,
+  password: string,
+  confirmPassword: string
+): { email: { isValid: boolean; errorKey?: string }; password: { isValid: boolean; errorKey?: string }; confirmPassword: { isValid: boolean; errorKey?: string }; isFormValid: boolean } => {
+  const emailValidation = validateEmail(email);
+  const passwordValidation = validatePassword(password);
+  const confirmPasswordValidation = validateConfirmPassword(password, confirmPassword);
+
+  const isFormValid =
+    emailValidation.isValid &&
+    passwordValidation.isValid &&
+    confirmPasswordValidation.isValid;
+
+  return {
+    email: emailValidation,
+    password: passwordValidation,
+    confirmPassword: confirmPasswordValidation,
+    isFormValid
+  };
 };
 
-export const truncateText = (text: string, maxLength: number): string => {
-  if (text.length <= maxLength) return text;
-  return text.substring(0, maxLength) + '...';
+// Комбинированная валидация для входа
+export const validateLogin = (
+  email: string,
+  password: string
+): { email: { isValid: boolean; errorKey?: string }; password: { isValid: boolean; errorKey?: string }; isFormValid: boolean } => {
+  const emailValidation = validateEmail(email);
+  const passwordValidation = validatePassword(password);
+
+  const isFormValid = emailValidation.isValid && passwordValidation.isValid;
+
+  return {
+    email: emailValidation,
+    password: passwordValidation,
+    isFormValid
+  };
 };
 
-// String utilities
-export const capitalizeFirstLetter = (str: string): string => {
-  return str.charAt(0).toUpperCase() + str.slice(1);
-};
+// Комбинированная валидация для смены пароля
+export const validatePasswordChange = (
+  currentPassword: string,
+  newPassword: string,
+  confirmNewPassword: string
+): { currentPassword: { isValid: boolean; errorKey?: string }; newPassword: { isValid: boolean; errorKey?: string }; confirmNewPassword: { isValid: boolean; errorKey?: string }; isFormValid: boolean } => {
+  const currentPasswordValidation = {
+    isValid: !!currentPassword,
+    errorKey: currentPassword ? undefined : 'validation.currentPasswordRequired'
+  };
+  const newPasswordValidation = validatePassword(newPassword);
+  const confirmNewPasswordValidation = validateConfirmPassword(newPassword, confirmNewPassword);
 
-export const camelCaseToTitle = (str: string): string => {
-  return str
-    .replace(/([A-Z])/g, ' $1')
-    .replace(/^./, str => str.toUpperCase());
-};
+  const isFormValid =
+    currentPasswordValidation.isValid &&
+    newPasswordValidation.isValid &&
+    confirmNewPasswordValidation.isValid;
 
-// Object utilities
-export const isEmpty = (obj: object): boolean => {
-  return Object.keys(obj).length === 0;
-};
-
-// Array utilities
-export const uniqueArray = <T>(arr: T[]): T[] => {
-  return [...new Set(arr)];
-};
-
-// Number utilities
-export const formatNumber = (num: number): string => {
-  return num.toLocaleString();
+  return {
+    currentPassword: currentPasswordValidation,
+    newPassword: newPasswordValidation,
+    confirmNewPassword: confirmNewPasswordValidation,
+    isFormValid
+  };
 };

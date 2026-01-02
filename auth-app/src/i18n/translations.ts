@@ -100,7 +100,7 @@ export const en = {
   },
   footer: {
     copyright: "Brave Monkey App. All rights reserved.",
-    loveCapybara: "Love capuchins, they are cool ! 🐵",
+    loveCapuchins: "Love capuchins, they are cool ! 🐵",
   },
   language: {
     english: "English",
@@ -140,6 +140,18 @@ export const en = {
     question2: "Screenshot detected: TwoSum problem on LeetCode.",
     answer2:
       "Optimal solution for TwoSum using Hash Map (O(n) time complexity):\\n\\n```go\\nfunc twoSum(nums []int, target int) []int {\\n    m := make(map[int]int)\\n    for i, n := range nums {\\n        if idx, ok := m[target-n]; ok {\\n            return []int{idx, i}\\n        }\\n        m[n] = i\\n    }\\n    return nil\\n}\\n```",
+  },
+  validation: {
+    emailRequired: "Email is required",
+    emailInvalid: "Please enter a valid email address",
+    passwordRequired: "Password is required",
+    passwordTooShort: "Password must be at least 6 characters long",
+    passwordTooLong: "Password must be no more than 128 characters long",
+    passwordRequirements:
+      "Password must contain at least one letter and one number",
+    passwordsNotMatch: "Passwords do not match",
+    confirmPasswordRequired: "Please confirm your password",
+    currentPasswordRequired: "Current password is required",
   },
   download: {
     title: "Download",
@@ -258,7 +270,7 @@ export const ru = {
   },
   footer: {
     copyright: "Brave Monkey App. Все права защищены.",
-    loveCapybara: "Люблю капуцин, они прикольные! 🐵",
+    loveCapuchins: "Люблю капуцин, они прикольные! 🐵",
   },
   language: {
     english: "Английский",
@@ -298,6 +310,18 @@ export const ru = {
     question2: "Обнаружено изображение: задача TwoSum на LeetCode.",
     answer2:
       "Оптимальное решение TwoSum с использованием хеш-таблицы (O(n) по времени):\\n\\n```go\\nfunc twoSum(nums []int, target int) []int {\\n    m := make(map[int]int)\\n    for i, n := range nums {\\n        if idx, ok := m[target-n]; ok {\\n            return []int{idx, i}\\n        }\\n        m[n] = i\\n    }\\n    return nil\\n}\\n```",
+  },
+  validation: {
+    emailRequired: "Email обязателен",
+    emailInvalid: "Пожалуйста, введите действительный адрес электронной почты",
+    passwordRequired: "Пароль обязателен",
+    passwordTooShort: "Пароль должен содержать не менее 6 символов",
+    passwordTooLong: "Пароль должен содержать не более 128 символов",
+    passwordRequirements:
+      "Пароль должен содержать хотя бы одну букву и одну цифру",
+    passwordsNotMatch: "Пароли не совпадают",
+    confirmPasswordRequired: "Пожалуйста, подтвердите ваш пароль",
+    currentPasswordRequired: "Текущий пароль обязателен",
   },
   download: {
     title: "Скачать",

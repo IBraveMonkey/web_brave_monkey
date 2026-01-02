@@ -8,8 +8,7 @@ const Footer: React.FC = () => {
   return (
     <footer className={styles.footer}>
       <p>
-        © {new Date().getFullYear()} Brave Monkey.{" "}
-        {t("footer.loveCapybara")}
+        © {new Date().getFullYear()} Brave Monkey. {t("footer.loveCapuchins")}
       </p>
     </footer>
   );
