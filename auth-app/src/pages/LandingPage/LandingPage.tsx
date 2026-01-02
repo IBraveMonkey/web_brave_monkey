@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { useI18n } from '../../contexts/I18nContext';
 import styles from './LandingPage.module.css';
@@ -7,6 +7,7 @@ import ChatDemo from '../../components/ChatDemo/ChatDemo';
 const LandingPage: React.FC = () => {
   const { t } = useI18n();
   const [animatedElements, setAnimatedElements] = useState<number[]>([]);
+  const ctaButtonRef = useRef<HTMLAnchorElement>(null);
 
   useEffect(() => {
     // Анимация появления элементов при загрузке
@@ -23,6 +24,11 @@ const LandingPage: React.FC = () => {
     };
   }, []);
 
+  const scrollToCtaButton = (e: React.MouseEvent) => {
+    e.preventDefault(); // Prevent default navigation
+    ctaButtonRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
     <div className={styles.landingContainer}>
       {/* Hero Section */}
@@ -37,9 +43,9 @@ const LandingPage: React.FC = () => {
             {t('landing.description')}
           </p>
           <div className={styles.heroButtons}>
-            <Link to="/register" className={styles.primaryButton}>
+            <a href="#cta-button" onClick={scrollToCtaButton} className={styles.primaryButton}>
               {t('landing.getStarted')}
-            </Link>
+            </a>
           </div>
         </div>
         <div className={`${styles.heroImage} ${animatedElements.includes(2) ? styles.animateIn : ''}`}>
@@ -105,7 +111,7 @@ const LandingPage: React.FC = () => {
         <p className={`${styles.ctaDescription} ${animatedElements.includes(4) ? styles.animateIn : ''}`}>
           {t('landing.ctaDescription')}
         </p>
-        <Link to="/register" className={styles.ctaButton}>
+        <Link to="/register" className={styles.ctaButton} ref={ctaButtonRef} id="cta-button">
           {t('landing.getStarted')}
         </Link>
       </section>

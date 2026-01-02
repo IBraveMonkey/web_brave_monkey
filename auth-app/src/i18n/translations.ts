@@ -99,7 +99,7 @@ export const en = {
     inactive: "Inactive",
   },
   footer: {
-    copyright: "Authentication App. All rights reserved.",
+    copyright: "Brave Monkey App. All rights reserved.",
     loveCapybara: "Love capuchins, they are cool ! 🐵",
   },
   language: {
@@ -107,29 +107,43 @@ export const en = {
     russian: "Russian",
   },
   landing: {
-    subtitle: "AI assistant for professionals",
-    description: "A stealth AI assistant that helps you during interviews, presentations, and meetings in real-time.",
+    subtitle: "AI assistant for interviews",
+    description:
+      "A stealth AI assistant that helps you during programmer interviews in real-time. Provides answers, analyzes questions.",
     getStarted: "Get Started",
     featuresTitle: "Features",
     feature1Title: "Real-time Analysis",
-    feature1Desc: "Analyzes what's happening on your screen and audio, providing relevant hints",
+    feature1Desc:
+      "Analyzes what's happening on your screen and audio, providing relevant hints",
     feature2Title: "Stealth Mode",
     feature2Desc: "Works over all windows but invisible to recording systems",
     feature4Title: "Free Models",
     feature4Desc: "Uses only free AI models from leading companies",
-    uspTitle: "Revolutionary Approach",
-    uspDescription: "An innovative AI assistant that helps you excel in interviews and meetings while staying completely undetected by recording systems",
-    benefit1: "Incognito mode: Overlay is invisible to Zoom, Google Meet, OBS and other recording systems",
-    benefit2: "Real-time: Real-time screen and audio analysis with instant responses",
+    uspTitle: "Tired of interviews?",
+    uspDescription:
+      "An AI assistant that helps you during programmer interviews in real-time. Because those interview questions about things you'll never use at work can be exhausting.",
+    benefit1:
+      "Incognito mode: Overlay is invisible to Zoom, Google Meet, OBS and other recording systems",
+    benefit2:
+      "Real-time: Real-time screen and audio analysis with instant responses",
     benefit3: "AI-Powered Assistance: Smart responses to help you succeed",
-    benefit4: "Advanced Algorithms: Cutting-edge technology for superior results",
+    benefit4:
+      "Advanced Algorithms: Cutting-edge technology for superior results",
     ctaTitle: "Ready to get started?",
-    ctaDescription: "Join thousands of professionals already using Brave Monkey to enhance their effectiveness in meetings and interviews",
+    ctaDescription:
+      "Join thousands of professionals already using Brave Monkey to enhance their effectiveness in the interviews",
+  },
+  chatDemo: {
+    question1: "What is garbage collector in Golang?",
+    answer1:
+      "Go uses a concurrent, tri-color, mark-and-sweep garbage collector. It works by: \\n1. Mark phase: identifies reachable objects.\\n2. Sweep phase: reclaims memory from unreachable objects.\\nIt's optimized for low latency (sub-millisecond pause times).",
+    question2: "Screenshot detected: TwoSum problem on LeetCode.",
+    answer2:
+      "Optimal solution for TwoSum using Hash Map (O(n) time complexity):\\n\\n```go\\nfunc twoSum(nums []int, target int) []int {\\n    m := make(map[int]int)\\n    for i, n := range nums {\\n        if idx, ok := m[target-n]; ok {\\n            return []int{idx, i}\\n        }\\n        m[n] = i\\n    }\\n    return nil\\n}\\n```",
   },
   download: {
     title: "Download",
-    subtitle:
-      "Download the latest version",
+    subtitle: "Download the latest version",
     windows: "Windows",
     macos: "macOS",
     windowsVersion: "Version: 1.0.0",
@@ -243,7 +257,7 @@ export const ru = {
     inactive: "Неактивно",
   },
   footer: {
-    copyright: "Authentication App. Все права защищены.",
+    copyright: "Brave Monkey App. Все права защищены.",
     loveCapybara: "Люблю капуцин, они прикольные! 🐵",
   },
   language: {
@@ -251,29 +265,43 @@ export const ru = {
     russian: "Русский",
   },
   landing: {
-    subtitle: "AI-помощник для профессионалов",
-    description: "Скрытный AI-ассистент, который помогает вам во время собеседований, презентаций и встреч в реальном времени.",
+    subtitle: "AI-помощник для собеседований",
+    description:
+      "Скрытный AI-ассистент, который помогает вам во время собеседований на программиста в реальном времени. Подсказывает ответы, анализирует вопросы.",
     getStarted: "Начать",
     featuresTitle: "Возможности",
     feature1Title: "Анализ в реальном времени",
-    feature1Desc: "Анализирует происходящее на экране и в аудио, предоставляя актуальные подсказки",
+    feature1Desc:
+      "Анализирует происходящее на экране и в аудио, предоставляя актуальные подсказки",
     feature2Title: "Незаметный режим",
     feature2Desc: "Работает поверх всех окон, но невидим для систем записи",
     feature4Title: "Бесплатные модели",
     feature4Desc: "Использует только бесплатные AI-модели от ведущих компаний",
-    uspTitle: "Революционный подход",
-    uspDescription: "Инновационный AI-ассистент, который помогает вам преуспеть на собеседованиях и встречах, оставаясь полностью незамеченным системами записи",
-    benefit1: "Инкогнито режим: Оверлей невидим для Zoom, Google Meet, OBS и других систем записи",
-    benefit2: "Реальное время: Анализ экрана и аудио в реальном времени с мгновенными ответами",
+    uspTitle: "Достали собесы?",
+    uspDescription:
+      "AI-ассистент, который помогает вам во время собеседований на программиста в реальном времени. Ведь эти вопросы на собеседованиях о том, что вам на работе маловероятно пригодится, могут утомлять.",
+    benefit1:
+      "Инкогнито режим: Оверлей невидим для Zoom, Google Meet, OBS и других систем записи",
+    benefit2:
+      "Реальное время: Анализ экрана и аудио в реальном времени с мгновенными ответами",
     benefit3: "AI-помощь: Умные ответы, которые помогут вам преуспеть",
-    benefit4: "Передовые алгоритмы: Передовые технологии для превосходных результатов",
+    benefit4:
+      "Передовые алгоритмы: Передовые технологии для превосходных результатов",
     ctaTitle: "Готовы начать?",
-    ctaDescription: "Присоединяйтесь к тысячам профессионалов, которые уже используют Brave Monkey для повышения эффективности на встречах и собеседованиях",
+    ctaDescription:
+      "Присоединяйтесь к тысячам профессионалов, которые уже используют Brave Monkey для повышения эффективности в собеседованиях",
+  },
+  chatDemo: {
+    question1: "Что такое сборщик мусора в Golang?",
+    answer1:
+      "Go использует конкурентный, трехцветный, пометочный сборщик мусора. Он работает следующим образом: \\n1. Фаза пометки: идентифицирует достижимые объекты.\\n2. Фаза очистки: освобождает память из недостижимых объектов.\\nОптимизирован для низкой задержки (время паузы в микросекундах).",
+    question2: "Обнаружено изображение: задача TwoSum на LeetCode.",
+    answer2:
+      "Оптимальное решение TwoSum с использованием хеш-таблицы (O(n) по времени):\\n\\n```go\\nfunc twoSum(nums []int, target int) []int {\\n    m := make(map[int]int)\\n    for i, n := range nums {\\n        if idx, ok := m[target-n]; ok {\\n            return []int{idx, i}\\n        }\\n        m[n] = i\\n    }\\n    return nil\\n}\\n```",
   },
   download: {
     title: "Скачать",
-    subtitle:
-      "Скачайте последнюю версию",
+    subtitle: "Скачайте последнюю версию",
     windows: "Windows",
     macos: "macOS",
     windowsVersion: "Версия: 1.0.0",

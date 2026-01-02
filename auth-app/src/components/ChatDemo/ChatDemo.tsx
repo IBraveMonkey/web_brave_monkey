@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useI18n } from '../../contexts/I18nContext';
 import styles from './ChatDemo.module.css';
 
 interface Message {
@@ -10,6 +11,7 @@ interface Message {
 }
 
 const ChatDemo: React.FC = () => {
+    const { t } = useI18n();
     const [messages, setMessages] = useState<Message[]>([]);
     const [isTyping, setIsTyping] = useState(false);
     const [currentScenario, setCurrentScenario] = useState(0);
@@ -20,13 +22,13 @@ const ChatDemo: React.FC = () => {
 
     const scenarios = [
         {
-            question: "What is garbage collector in Golang?",
-            answer: "Go uses a concurrent, tri-color, mark-and-sweep garbage collector. It works by: \n1. Mark phase: identifies reachable objects.\n2. Sweep phase: reclaims memory from unreachable objects.\nIt's optimized for low latency (sub-millisecond pause times)."
+            question: t('chatDemo.question1'),
+            answer: t('chatDemo.answer1')
         },
         {
-            question: "Screenshot detected: TwoSum problem on LeetCode.",
+            question: t('chatDemo.question2'),
             isQuestionScreenshot: true,
-            answer: "Optimal solution for TwoSum using Hash Map (O(n) time complexity):\n\n```go\nfunc twoSum(nums []int, target int) []int {\n    m := make(map[int]int)\n    for i, n := range nums {\n        if idx, ok := m[target-n]; ok {\n            return []int{idx, i}\n        }\n        m[n] = i\n    }\n    return nil\n}\n```"
+            answer: t('chatDemo.answer2')
         }
     ];
 
@@ -58,7 +60,7 @@ const ChatDemo: React.FC = () => {
             setIsTyping(true);
 
             // Typing animation
-            const fullText = scenario.answer;
+            const fullText = scenario.answer.replace(/\\n/g, '\n');
             let currentText = "";
             for (let i = 0; i < fullText.length; i++) {
                 await new Promise(r => setTimeout(r, 15));
@@ -90,7 +92,7 @@ const ChatDemo: React.FC = () => {
         runScenario();
 
         return () => { mounted = false; };
-    }, [currentScenario]);
+    }, [currentScenario, t]);
 
     const handleMouseEnter = () => {
         setHoverProgress(0);
