@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useI18n } from '../../contexts/I18nContext';
 import { validateEmail } from '../../utils/validation';
 import { apiClient } from '../../api/apiClient';
@@ -11,7 +11,6 @@ const ForgotPasswordPage: React.FC = () => {
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
   const [emailError, setEmailError] = useState('');
-  const navigate = useNavigate();
   const { t } = useI18n();
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -49,16 +48,18 @@ const ForgotPasswordPage: React.FC = () => {
     <div className={styles.formContainer}>
       <h1 className={styles.formTitle}>{t('auth.forgotPassword')}</h1>
       <p className={styles.formSubtitle}>{t('auth.forgotPasswordSubtitle')}</p>
-      
+
       <form onSubmit={handleSubmit}>
         <div className={styles.formGroup}>
-          <label htmlFor="email" className={styles.formLabel}>{t('auth.email')}</label>
+          <label htmlFor="email" className={styles.formLabel}>
+            {t('auth.email')}
+          </label>
           <input
             id="email"
             type="email"
             className={`${styles.formInput} ${emailError ? styles.formInputError : ''}`}
             value={email}
-            onChange={(e) => {
+            onChange={e => {
               setEmail(e.target.value);
               // Валидация в реальном времени
               const validation = validateEmail(e.target.value);
@@ -77,10 +78,15 @@ const ForgotPasswordPage: React.FC = () => {
           {loading ? t('auth.sending') : t('auth.sendResetLink')}
         </button>
       </form>
-      
-      <div className={styles.formGroup} style={{ marginTop: '20px', textAlign: 'center' }}>
+
+      <div
+        className={styles.formGroup}
+        style={{ marginTop: '20px', textAlign: 'center' }}
+      >
         <p>
-          <Link to="/login" className={styles.formLink}>{t('auth.backToLogin')}</Link>
+          <Link to="/login" className={styles.formLink}>
+            {t('auth.backToLogin')}
+          </Link>
         </p>
       </div>
     </div>

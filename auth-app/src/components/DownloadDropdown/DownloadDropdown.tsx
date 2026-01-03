@@ -20,12 +20,16 @@ const DownloadDropdown: React.FC = () => {
     <Dropdown title={t('download.title')}>
       <div className={styles.downloadCard}>
         <div className={styles.platformIcon}>
-          <span role="img" aria-label="apple">🍎</span>
+          <span role="img" aria-label="apple">
+            🍎
+          </span>
         </div>
         <div className={styles.platformInfo}>
           <h3 className={styles.platformTitle}>{t('download.macos')}</h3>
           <p className={styles.platformVersion}>{t('download.macosVersion')}</p>
-          <p className={styles.platformRequirements}>{t('download.macosRequirements')}</p>
+          <p className={styles.platformRequirements}>
+            {t('download.macosRequirements')}
+          </p>
         </div>
         <button
           className={styles.downloadButton}
@@ -36,12 +40,18 @@ const DownloadDropdown: React.FC = () => {
       </div>
       <div className={styles.downloadCard}>
         <div className={styles.platformIcon}>
-          <span role="img" aria-label="windows">🪟</span>
+          <span role="img" aria-label="windows">
+            🪟
+          </span>
         </div>
         <div className={styles.platformInfo}>
           <h3 className={styles.platformTitle}>{t('download.windows')}</h3>
-          <p className={styles.platformVersion}>{t('download.windowsVersion')}</p>
-          <p className={styles.platformRequirements}>{t('download.windowsRequirements')}</p>
+          <p className={styles.platformVersion}>
+            {t('download.windowsVersion')}
+          </p>
+          <p className={styles.platformRequirements}>
+            {t('download.windowsRequirements')}
+          </p>
         </div>
         <button
           className={styles.downloadButton}

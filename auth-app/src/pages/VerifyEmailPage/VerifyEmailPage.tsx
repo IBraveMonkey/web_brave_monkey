@@ -34,13 +34,15 @@ const VerifyEmailPage: React.FC = () => {
       <p className={styles.formDescription}>{t('auth.enterSixDigitCode')}</p>
       <form onSubmit={handleSubmit}>
         <div className={styles.formGroup}>
-          <label htmlFor="code" className={styles.formLabel}>{t('auth.verificationCode')}</label>
+          <label htmlFor="code" className={styles.formLabel}>
+            {t('auth.verificationCode')}
+          </label>
           <input
             id="code"
             type="text"
             className={styles.formInput}
             value={code}
-            onChange={(e) => setCode(e.target.value)}
+            onChange={e => setCode(e.target.value)}
             placeholder="Enter 6-digit code"
             required
             maxLength={6}
@@ -49,7 +51,9 @@ const VerifyEmailPage: React.FC = () => {
         </div>
         {error && <div className={styles.formError}>{error}</div>}
         {message && <div className={styles.formSuccess}>{message}</div>}
-        <button type="submit" className={`${styles.btn} ${styles.btnPrimary}`}>{t('auth.verifyEmailButton')}</button>
+        <button type="submit" className={`${styles.btn} ${styles.btnPrimary}`}>
+          {t('auth.verifyEmailButton')}
+        </button>
       </form>
     </div>
   );

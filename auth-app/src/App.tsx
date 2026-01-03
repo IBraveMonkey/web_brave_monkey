@@ -31,29 +31,47 @@ function App() {
                   <Route path="/login" element={<LoginPage />} />
                   <Route path="/register" element={<RegisterPage />} />
                   <Route path="/verify-email" element={<VerifyEmailPage />} />
-                  <Route path="/forgot-password" element={<ForgotPasswordPage />} />
-                  <Route path="/reset-password/:token" element={<ResetPasswordPage />} />
+                  <Route
+                    path="/forgot-password"
+                    element={<ForgotPasswordPage />}
+                  />
+                  <Route
+                    path="/reset-password/:token"
+                    element={<ResetPasswordPage />}
+                  />
                   <Route path="/download" element={<DownloadPage />} />
-                  <Route path="/dashboard" element={
-                    <ProtectedRoute>
-                      <DashboardPage />
-                    </ProtectedRoute>
-                  } />
-                  <Route path="/profile" element={
-                    <ProtectedRoute>
-                      <ProfilePage />
-                    </ProtectedRoute>
-                  } />
-                  <Route path="/chats" element={
-                    <ProtectedRoute>
-                      <ChatsPage />
-                    </ProtectedRoute>
-                  } />
-                  <Route path="/api-status" element={
-                    <ProtectedRoute>
-                      <APIsProviderStatus />
-                    </ProtectedRoute>
-                  } />
+                  <Route
+                    path="/dashboard"
+                    element={
+                      <ProtectedRoute>
+                        <DashboardPage />
+                      </ProtectedRoute>
+                    }
+                  />
+                  <Route
+                    path="/profile"
+                    element={
+                      <ProtectedRoute>
+                        <ProfilePage />
+                      </ProtectedRoute>
+                    }
+                  />
+                  <Route
+                    path="/chats"
+                    element={
+                      <ProtectedRoute>
+                        <ChatsPage />
+                      </ProtectedRoute>
+                    }
+                  />
+                  <Route
+                    path="/api-status"
+                    element={
+                      <ProtectedRoute>
+                        <APIsProviderStatus />
+                      </ProtectedRoute>
+                    }
+                  />
                 </Routes>
               </div>
               <Footer />
