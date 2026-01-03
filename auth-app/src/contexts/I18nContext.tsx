@@ -1,4 +1,10 @@
-import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
+import React, {
+  createContext,
+  useContext,
+  useState,
+  ReactNode,
+  useEffect,
+} from 'react';
 
 // Import translations
 import { en, ru } from '../i18n/translations';
@@ -17,13 +23,20 @@ interface I18nContextType {
 const I18nContext = createContext<I18nContextType | undefined>(undefined);
 
 // Translation function that handles nested keys
-const translate = (key: string, translations: Record<string, any>): string => {
+const translate = (
+  key: string,
+  translations: Record<string, unknown>
+): string => {
   const keys = key.split('.');
-  let result: any = translations;
+  let result: unknown = translations;
 
   for (const k of keys) {
-    if (result && typeof result === 'object' && result[k] !== undefined) {
-      result = result[k];
+    if (
+      result &&
+      typeof result === 'object' &&
+      (result as Record<string, unknown>)[k] !== undefined
+    ) {
+      result = (result as Record<string, unknown>)[k];
     } else {
       return key; // Return the key itself if translation is not found
     }
@@ -33,7 +46,9 @@ const translate = (key: string, translations: Record<string, any>): string => {
 };
 
 // I18n provider component
-export const I18nProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+export const I18nProvider: React.FC<{ children: ReactNode }> = ({
+  children,
+}) => {
   const [language, setLanguage] = useState<Language>(() => {
     // Get language from localStorage or default to 'en'
     const savedLanguage = localStorage.getItem('language') as Language;
@@ -41,9 +56,7 @@ export const I18nProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   });
 
   // Update translations when language changes
-  const [translations, setTranslations] = useState(
-    language === 'en' ? en : ru
-  );
+  const [translations, setTranslations] = useState(language === 'en' ? en : ru);
 
   useEffect(() => {
     // Update translations when language changes

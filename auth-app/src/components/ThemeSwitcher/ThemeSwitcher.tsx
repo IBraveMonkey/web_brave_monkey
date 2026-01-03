@@ -9,7 +9,9 @@ const ThemeSwitcher: React.FC = () => {
     <button
       className={styles.themeSwitcher}
       onClick={toggleTheme}
-      aria-label={theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'}
+      aria-label={
+        theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'
+      }
     >
       {theme === 'dark' ? (
         <span className={styles.icon} role="img" aria-label="sun">

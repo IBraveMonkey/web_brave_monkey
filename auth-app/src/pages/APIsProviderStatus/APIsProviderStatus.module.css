@@ -61,7 +61,13 @@
   left: -2px;
   right: -2px;
   bottom: -2px;
-  background: linear-gradient(45deg, var(--primary-color-light), rgba(16, 185, 129, 0.02), var(--primary-color-light), rgba(16, 185, 129, 0.02));
+  background: linear-gradient(
+    45deg,
+    var(--primary-color-light),
+    rgba(16, 185, 129, 0.02),
+    var(--primary-color-light),
+    rgba(16, 185, 129, 0.02)
+  );
   z-index: -1;
   border-radius: 10px;
   opacity: 0.01;

@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams, Link } from 'react-router-dom';
 import { useI18n } from '../../contexts/I18nContext';
-import { validatePassword, validateConfirmPassword } from '../../utils/validation';
+import {
+  validatePassword,
+  validateConfirmPassword,
+} from '../../utils/validation';
 import { apiClient } from '../../api/apiClient';
 import styles from './ResetPasswordPage.module.css';
 
@@ -44,10 +47,19 @@ const ResetPasswordPage: React.FC = () => {
 
     // Валидация полей
     const passwordValidation = validatePassword(password);
-    const confirmPasswordValidation = validateConfirmPassword(password, confirmPassword);
+    const confirmPasswordValidation = validateConfirmPassword(
+      password,
+      confirmPassword
+    );
 
-    setPasswordError(passwordValidation.errorKey ? t(passwordValidation.errorKey) : '');
-    setConfirmPasswordError(confirmPasswordValidation.errorKey ? t(confirmPasswordValidation.errorKey) : '');
+    setPasswordError(
+      passwordValidation.errorKey ? t(passwordValidation.errorKey) : ''
+    );
+    setConfirmPasswordError(
+      confirmPasswordValidation.errorKey
+        ? t(confirmPasswordValidation.errorKey)
+        : ''
+    );
 
     if (!passwordValidation.isValid || !confirmPasswordValidation.isValid) {
       setLoading(false);
@@ -57,7 +69,7 @@ const ResetPasswordPage: React.FC = () => {
     try {
       const response = await apiClient.post('/auth/reset-password', {
         token,
-        newPassword: password
+        newPassword: password,
       });
 
       if (response.success) {
@@ -81,9 +93,14 @@ const ResetPasswordPage: React.FC = () => {
       <div className={styles.formContainer}>
         <h1 className={styles.formTitle}>{t('auth.invalidTokenTitle')}</h1>
         <div className={styles.formError}>{error}</div>
-        <div className={styles.formGroup} style={{ marginTop: '20px', textAlign: 'center' }}>
+        <div
+          className={styles.formGroup}
+          style={{ marginTop: '20px', textAlign: 'center' }}
+        >
           <p>
-            <Link to="/login" className={styles.formLink}>{t('auth.backToLogin')}</Link>
+            <Link to="/login" className={styles.formLink}>
+              {t('auth.backToLogin')}
+            </Link>
           </p>
         </div>
       </div>
@@ -97,18 +114,22 @@ const ResetPasswordPage: React.FC = () => {
 
       <form onSubmit={handleSubmit}>
         <div className={styles.formGroup}>
-          <label htmlFor="password" className={styles.formLabel}>{t('auth.newPassword')}</label>
+          <label htmlFor="password" className={styles.formLabel}>
+            {t('auth.newPassword')}
+          </label>
           <div className={styles.passwordInputContainer}>
             <input
               id="password"
-              type={showPassword ? "text" : "password"}
+              type={showPassword ? 'text' : 'password'}
               className={`${styles.formInput} ${passwordError ? styles.formInputError : ''}`}
               value={password}
-              onChange={(e) => {
+              onChange={e => {
                 setPassword(e.target.value);
                 // Валидация в реальном времени
                 const validation = validatePassword(e.target.value);
-                setPasswordError(validation.errorKey ? t(validation.errorKey) : '');
+                setPasswordError(
+                  validation.errorKey ? t(validation.errorKey) : ''
+                );
               }}
               required
               disabled={loading}
@@ -117,28 +138,37 @@ const ResetPasswordPage: React.FC = () => {
               type="button"
               className={styles.passwordToggle}
               onClick={() => setShowPassword(!showPassword)}
-              aria-label={showPassword ? "Hide password" : "Show password"}
+              aria-label={showPassword ? 'Hide password' : 'Show password'}
               disabled={loading}
             >
-              {showPassword ? "👁️" : "👁️‍🗨️"}
+              {showPassword ? '👁️' : '👁️‍🗨️'}
             </button>
           </div>
-          {passwordError && <div className={styles.formError}>{passwordError}</div>}
+          {passwordError && (
+            <div className={styles.formError}>{passwordError}</div>
+          )}
         </div>
 
         <div className={styles.formGroup}>
-          <label htmlFor="confirmPassword" className={styles.formLabel}>{t('auth.confirmNewPassword')}</label>
+          <label htmlFor="confirmPassword" className={styles.formLabel}>
+            {t('auth.confirmNewPassword')}
+          </label>
           <div className={styles.passwordInputContainer}>
             <input
               id="confirmPassword"
-              type={showConfirmPassword ? "text" : "password"}
+              type={showConfirmPassword ? 'text' : 'password'}
               className={`${styles.formInput} ${confirmPasswordError ? styles.formInputError : ''}`}
               value={confirmPassword}
-              onChange={(e) => {
+              onChange={e => {
                 setConfirmPassword(e.target.value);
                 // Валидация в реальном времени
-                const validation = validateConfirmPassword(password, e.target.value);
-                setConfirmPasswordError(validation.errorKey ? t(validation.errorKey) : '');
+                const validation = validateConfirmPassword(
+                  password,
+                  e.target.value
+                );
+                setConfirmPasswordError(
+                  validation.errorKey ? t(validation.errorKey) : ''
+                );
               }}
               required
               disabled={loading}
@@ -147,13 +177,17 @@ const ResetPasswordPage: React.FC = () => {
               type="button"
               className={styles.passwordToggle}
               onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-              aria-label={showConfirmPassword ? "Hide password" : "Show password"}
+              aria-label={
+                showConfirmPassword ? 'Hide password' : 'Show password'
+              }
               disabled={loading}
             >
-              {showConfirmPassword ? "👁️" : "👁️‍🗨️"}
+              {showConfirmPassword ? '👁️' : '👁️‍🗨️'}
             </button>
           </div>
-          {confirmPasswordError && <div className={styles.formError}>{confirmPasswordError}</div>}
+          {confirmPasswordError && (
+            <div className={styles.formError}>{confirmPasswordError}</div>
+          )}
         </div>
 
         {error && <div className={styles.formError}>{error}</div>}
@@ -164,9 +198,14 @@ const ResetPasswordPage: React.FC = () => {
         </button>
       </form>
 
-      <div className={styles.formGroup} style={{ marginTop: '20px', textAlign: 'center' }}>
+      <div
+        className={styles.formGroup}
+        style={{ marginTop: '20px', textAlign: 'center' }}
+      >
         <p>
-          <Link to="/login" className={styles.formLink}>{t('auth.backToLogin')}</Link>
+          <Link to="/login" className={styles.formLink}>
+            {t('auth.backToLogin')}
+          </Link>
         </p>
       </div>
     </div>

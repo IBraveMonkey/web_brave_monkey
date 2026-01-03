@@ -7,12 +7,18 @@ import { apiClient } from '../../api/apiClient';
 const DashboardPage: React.FC = () => {
   const { user } = useAuth();
   const { t } = useI18n();
-  const [statsData, setStatsData] = React.useState<{ totalChats: number, totalMessages: number } | null>(null);
+  const [statsData, setStatsData] = React.useState<{
+    totalChats: number;
+    totalMessages: number;
+  } | null>(null);
 
   React.useEffect(() => {
     const fetchStats = async () => {
       try {
-        const response = await apiClient.get<{ totalChats: number, totalMessages: number }>('/chats/stats');
+        const response = await apiClient.get<{
+          totalChats: number;
+          totalMessages: number;
+        }>('/chats/stats');
         if (response.success && response.data) {
           setStatsData(response.data);
         }
@@ -39,8 +45,14 @@ const DashboardPage: React.FC = () => {
   // Real statistics data
   const stats = [
     { label: t('dashboard.totalChats'), value: statsData?.totalChats ?? '...' },
-    { label: t('dashboard.messagesSent'), value: statsData?.totalMessages ?? '...' },
-    { label: t('dashboard.activeSessions'), value: statsData?.totalChats ? '1' : '0' },
+    {
+      label: t('dashboard.messagesSent'),
+      value: statsData?.totalMessages ?? '...',
+    },
+    {
+      label: t('dashboard.activeSessions'),
+      value: statsData?.totalChats ? '1' : '0',
+    },
     { label: t('dashboard.accountAge'), value: getAccountAge() },
   ];
 
@@ -48,7 +60,9 @@ const DashboardPage: React.FC = () => {
     <div className={styles.container}>
       <div className={styles.pageContent}>
         <div className={styles.card}>
-          <h2 className={styles.cardTitle}>{t('dashboard.welcome')}, {user?.email}!</h2>
+          <h2 className={styles.cardTitle}>
+            {t('dashboard.welcome')}, {user?.email}!
+          </h2>
           <p>{t('dashboard.personalDashboard')}</p>
         </div>
 

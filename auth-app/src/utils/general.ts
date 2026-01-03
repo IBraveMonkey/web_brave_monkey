@@ -19,7 +19,9 @@ export const isBoolean = (x: unknown): x is boolean => {
   return typeof x === 'boolean';
 };
 
-export const isFunction = (x: unknown): x is Function => {
+export const isFunction = (
+  x: unknown
+): x is (...args: unknown[]) => unknown => {
   return typeof x === 'function';
 };
 
@@ -27,7 +29,7 @@ export const isObject = (x: unknown): x is object => {
   return x !== null && typeof x === 'object' && !Array.isArray(x);
 };
 
-export const isArray = (x: unknown): x is any[] => {
+export const isArray = (x: unknown): x is unknown[] => {
   return Array.isArray(x);
 };
 

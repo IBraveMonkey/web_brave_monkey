@@ -26,11 +26,15 @@ const DownloadPage: React.FC = () => {
         <div className={styles.downloadCard}>
           <div className={styles.platformHeader}>
             <div className={styles.platformIcon}>
-              <span role="img" aria-label="apple">🍎</span>
+              <span role="img" aria-label="apple">
+                🍎
+              </span>
             </div>
             <div className={styles.platformInfo}>
               <h2 className={styles.platformTitle}>{t('download.macos')}</h2>
-              <p className={styles.platformRequirements}>{t('download.macosRequirements')}</p>
+              <p className={styles.platformRequirements}>
+                {t('download.macosRequirements')}
+              </p>
             </div>
           </div>
           <button
@@ -44,11 +48,15 @@ const DownloadPage: React.FC = () => {
         <div className={styles.downloadCard}>
           <div className={styles.platformHeader}>
             <div className={styles.platformIcon}>
-              <span role="img" aria-label="windows">🪟</span>
+              <span role="img" aria-label="windows">
+                🪟
+              </span>
             </div>
             <div className={styles.platformInfo}>
               <h2 className={styles.platformTitle}>{t('download.windows')}</h2>
-              <p className={styles.platformRequirements}>{t('download.windowsRequirements')}</p>
+              <p className={styles.platformRequirements}>
+                {t('download.windowsRequirements')}
+              </p>
             </div>
           </div>
           <button

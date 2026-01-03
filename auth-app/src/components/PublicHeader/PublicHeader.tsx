@@ -19,7 +19,10 @@ const PublicHeader: React.FC = () => {
     <header className={styles.header}>
       <div className={styles.navLeft}>
         <Link to="/" className={styles.navBrand}>
-          <span role="img" aria-label="gorilla">🦍</span> Brave Monkey
+          <span role="img" aria-label="gorilla">
+            🦍
+          </span>{' '}
+          Brave Monkey
         </Link>
       </div>
       <div className={styles.navCenter}>

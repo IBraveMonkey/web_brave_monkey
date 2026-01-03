@@ -14,7 +14,8 @@ const LanguageSwitcher: React.FC = () => {
     { code: 'ru', flag: '🇷🇺', name: 'RU' },
   ];
 
-  const currentLanguage = languages.find(lang => lang.code === language) || languages[0];
+  const currentLanguage =
+    languages.find(lang => lang.code === language) || languages[0];
 
   // Закрытие выпадающего списка при клике вне его
   useEffect(() => {
@@ -41,14 +42,17 @@ const LanguageSwitcher: React.FC = () => {
   };
 
   // Позиционирование выпадающего списка
-  const [dropdownPosition, setDropdownPosition] = useState({ top: 0, right: 0 });
+  const [dropdownPosition, setDropdownPosition] = useState({
+    top: 0,
+    right: 0,
+  });
 
   useEffect(() => {
     if (isOpen && buttonRef.current) {
       const buttonRect = buttonRef.current.getBoundingClientRect();
       setDropdownPosition({
         top: buttonRect.bottom,
-        right: window.innerWidth - buttonRect.right
+        right: window.innerWidth - buttonRect.right,
       });
     }
   }, [isOpen]);
@@ -64,10 +68,13 @@ const LanguageSwitcher: React.FC = () => {
       >
         <span className={styles.languageFlag}>{currentLanguage.flag}</span>
         <span className={styles.languageCode}>{currentLanguage.name}</span>
-        <span className={`${styles.arrow} ${isOpen ? styles.arrowUp : styles.arrowDown}`}></span>
+        <span
+          className={`${styles.arrow} ${isOpen ? styles.arrowUp : styles.arrowDown}`}
+        ></span>
       </button>
 
-      {isOpen && typeof document !== 'undefined' &&
+      {isOpen &&
+        typeof document !== 'undefined' &&
         createPortal(
           <div
             ref={dropdownRef}
@@ -78,7 +85,7 @@ const LanguageSwitcher: React.FC = () => {
               position: 'fixed',
             }}
           >
-            {languages.map((lang) => (
+            {languages.map(lang => (
               <div
                 key={lang.code}
                 className={`${styles.dropdownItem} ${language === lang.code ? styles.active : ''}`}
@@ -90,8 +97,7 @@ const LanguageSwitcher: React.FC = () => {
             ))}
           </div>,
           document.body
-        )
-      }
+        )}
     </div>
   );
 };

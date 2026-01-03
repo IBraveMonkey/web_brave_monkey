@@ -1,5 +1,4 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { useI18n } from '../../contexts/I18nContext';
 import styles from './Dropdown.module.css';
 
 interface DropdownProps {
@@ -10,14 +9,17 @@ interface DropdownProps {
 const Dropdown: React.FC<DropdownProps> = ({ title, children }) => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
-  const { t } = useI18n();
+  // const { t } = useI18n(); // Not currently used but may be needed in future
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
 
   const handleClickOutside = (event: MouseEvent) => {
-    if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+    if (
+      dropdownRef.current &&
+      !dropdownRef.current.contains(event.target as Node)
+    ) {
       setIsOpen(false);
     }
   };
@@ -31,20 +33,18 @@ const Dropdown: React.FC<DropdownProps> = ({ title, children }) => {
 
   return (
     <div className={styles.dropdown} ref={dropdownRef}>
-      <button 
+      <button
         className={`${styles.dropdownButton} ${isOpen ? styles.active : ''}`}
         onClick={toggleDropdown}
         aria-haspopup="true"
         aria-expanded={isOpen}
       >
         {title}
-        <span className={`${styles.arrow} ${isOpen ? styles.rotate : ''}`}>▼</span>
+        <span className={`${styles.arrow} ${isOpen ? styles.rotate : ''}`}>
+          ▼
+        </span>
       </button>
-      {isOpen && (
-        <div className={styles.dropdownContent}>
-          {children}
-        </div>
-      )}
+      {isOpen && <div className={styles.dropdownContent}>{children}</div>}
     </div>
   );
 };

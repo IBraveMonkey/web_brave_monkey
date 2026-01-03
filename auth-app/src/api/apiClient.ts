@@ -9,7 +9,10 @@ class ApiClient {
     this.baseUrl = '/api';
   }
 
-  async request<T>(endpoint: string, options: RequestInit = {}): Promise<ApiResponse<T>> {
+  async request<T>(
+    endpoint: string,
+    options: RequestInit = {}
+  ): Promise<ApiResponse<T>> {
     const url = `${this.baseUrl}${endpoint}`;
     const token = localStorage.getItem('token');
 
@@ -20,7 +23,9 @@ class ApiClient {
 
     if (token) {
       headers['Authorization'] = `Bearer ${token}`;
-      console.log(`[API] Sending request to ${endpoint} with token: ${token.substring(0, 10)}...`);
+      console.log(
+        `[API] Sending request to ${endpoint} with token: ${token.substring(0, 10)}...`
+      );
     } else {
       console.log(`[API] Sending request to ${endpoint} WITHOUT token`);
     }
@@ -51,14 +56,14 @@ class ApiClient {
     return this.request<T>(endpoint, { method: 'GET' });
   }
 
-  post<T>(endpoint: string, data?: any) {
+  post<T>(endpoint: string, data?: unknown) {
     return this.request<T>(endpoint, {
       method: 'POST',
       body: JSON.stringify(data),
     });
   }
 
-  put<T>(endpoint: string, data?: any) {
+  put<T>(endpoint: string, data?: unknown) {
     return this.request<T>(endpoint, {
       method: 'PUT',
       body: JSON.stringify(data),

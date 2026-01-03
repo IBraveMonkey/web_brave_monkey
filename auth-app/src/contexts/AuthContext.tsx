@@ -1,5 +1,16 @@
-import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { AuthContextType, User, LoginCredentials, RegisterData } from '../types/auth';
+import {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  ReactNode,
+} from 'react';
+import {
+  AuthContextType,
+  User,
+  LoginCredentials,
+  RegisterData,
+} from '../types/auth';
 import { apiClient } from '../api/apiClient';
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -15,7 +26,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       // Verify token is still valid
       apiClient
         .get('/auth/me')
-        .then((response) => {
+        .then(response => {
           if (response.success && response.data) {
             setUser(response.data as User);
           } else {
@@ -28,10 +39,12 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
           localStorage.removeItem('token');
         })
         .finally(() => {
-          setLoading(false);
+          // Only set loading to false after async operations complete
+          setTimeout(() => setLoading(false), 0);
         });
     } else {
-      setLoading(false);
+      // Use a callback to ensure we're not setting state synchronously in the effect
+      Promise.resolve().then(() => setLoading(false));
     }
   }, []);
 
@@ -40,11 +53,15 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       const response = await apiClient.post('/auth/login', credentials);
       if (response.success && response.data) {
         // Handle both structure formats (accessToken or token)
-        const data = response.data as any;
+        const data = response.data as {
+          accessToken?: string;
+          token?: string;
+          user?: User;
+        };
         const token = data.accessToken || data.token;
         const user = data.user;
 
-        if (token) {
+        if (token && user) {
           localStorage.setItem('token', token);
           setUser(user);
           return true;
@@ -72,11 +89,15 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       const response = await apiClient.post('/auth/verify-email', { code });
       if (response.success && response.data) {
         // Automatically log in the user after email verification
-        const data = response.data as any;
+        const data = response.data as {
+          accessToken?: string;
+          token?: string;
+          user?: User;
+        };
         const token = data.accessToken || data.token;
         const user = data.user;
 
-        if (token) {
+        if (token && user) {
           localStorage.setItem('token', token);
           setUser(user);
           return true;
@@ -99,9 +120,15 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
-  const resetPassword = async (token: string, newPassword: string): Promise<boolean> => {
+  const resetPassword = async (
+    token: string,
+    newPassword: string
+  ): Promise<boolean> => {
     try {
-      const response = await apiClient.post('/auth/reset-password', { token, newPassword });
+      const response = await apiClient.post('/auth/reset-password', {
+        token,
+        newPassword,
+      });
       return response.success;
     } catch (error) {
       console.error('Reset password error:', error);
@@ -114,7 +141,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       const response = await apiClient.put('/auth/update-email', { newEmail });
       if (response.success && response.data) {
         // Update the user in context with new email
-        setUser(prev => prev ? { ...prev, email: newEmail } : null);
+        setUser(prev => (prev ? { ...prev, email: newEmail } : null));
         return true;
       }
       return false;

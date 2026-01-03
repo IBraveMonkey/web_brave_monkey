@@ -1,4 +1,10 @@
-import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
+import React, {
+  createContext,
+  useContext,
+  useState,
+  ReactNode,
+  useEffect,
+} from 'react';
 
 // Define available themes
 export type Theme = 'dark' | 'light';
@@ -14,7 +20,9 @@ interface ThemeContextType {
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 // Theme provider component
-export const ThemeProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+export const ThemeProvider: React.FC<{ children: ReactNode }> = ({
+  children,
+}) => {
   const [theme, setThemeState] = useState<Theme>(() => {
     // Get theme from localStorage or default to 'dark'
     const savedTheme = localStorage.getItem('theme') as Theme;
@@ -31,13 +39,13 @@ export const ThemeProvider: React.FC<{ children: ReactNode }> = ({ children }) =
       root.classList.remove('dark-theme');
       root.classList.add('light-theme');
     }
-    
+
     // Store theme in localStorage
     localStorage.setItem('theme', theme);
   }, [theme]);
 
   const toggleTheme = () => {
-    setThemeState(prev => prev === 'dark' ? 'light' : 'dark');
+    setThemeState(prev => (prev === 'dark' ? 'light' : 'dark'));
   };
 
   const setTheme = (theme: Theme) => {
@@ -50,7 +58,9 @@ export const ThemeProvider: React.FC<{ children: ReactNode }> = ({ children }) =
     setTheme,
   };
 
-  return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>;
+  return (
+    <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>
+  );
 };
 
 // Custom hook to use the theme context

@@ -22,11 +22,13 @@ const Header: React.FC = () => {
       <div className={styles.navLeft}>
         {user ? (
           <Link to="/dashboard" className={styles.navBrand}>
-            <img src="/favicon.ico" alt="Logo" className={styles.logo} /> Brave Monkey
+            <img src="/favicon.ico" alt="Logo" className={styles.logo} /> Brave
+            Monkey
           </Link>
         ) : (
           <Link to="/" className={styles.navBrand}>
-            <img src="/favicon.ico" alt="Logo" className={styles.logo} /> Brave Monkey
+            <img src="/favicon.ico" alt="Logo" className={styles.logo} /> Brave
+            Monkey
           </Link>
         )}
       </div>
@@ -58,7 +60,6 @@ const Header: React.FC = () => {
               >
                 {t('navigation.download')}
               </Link>
-
             </>
           ) : (
             <>
@@ -91,7 +92,9 @@ const Header: React.FC = () => {
             className={`${styles.profileLink} ${isActive('/profile') ? styles.active : ''}`}
             title={t('navigation.profile')}
           >
-            <span role="img" aria-label="profile">👤</span>
+            <span role="img" aria-label="profile">
+              👤
+            </span>
           </Link>
         )}
       </div>

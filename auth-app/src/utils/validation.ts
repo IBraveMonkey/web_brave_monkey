@@ -1,7 +1,9 @@
 // utils/validation.ts
 
 // Валидация email
-export const validateEmail = (email: string): { isValid: boolean; errorKey?: string } => {
+export const validateEmail = (
+  email: string
+): { isValid: boolean; errorKey?: string } => {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
   if (!email) {
@@ -16,7 +18,9 @@ export const validateEmail = (email: string): { isValid: boolean; errorKey?: str
 };
 
 // Валидация пароля
-export const validatePassword = (password: string): { isValid: boolean; errorKey?: string } => {
+export const validatePassword = (
+  password: string
+): { isValid: boolean; errorKey?: string } => {
   if (!password) {
     return { isValid: false, errorKey: 'validation.passwordRequired' };
   }
@@ -41,7 +45,10 @@ export const validatePassword = (password: string): { isValid: boolean; errorKey
 };
 
 // Валидация подтверждения пароля
-export const validateConfirmPassword = (password: string, confirmPassword: string): { isValid: boolean; errorKey?: string } => {
+export const validateConfirmPassword = (
+  password: string,
+  confirmPassword: string
+): { isValid: boolean; errorKey?: string } => {
   if (!confirmPassword) {
     return { isValid: false, errorKey: 'validation.confirmPasswordRequired' };
   }
@@ -58,10 +65,18 @@ export const validateRegistration = (
   email: string,
   password: string,
   confirmPassword: string
-): { email: { isValid: boolean; errorKey?: string }; password: { isValid: boolean; errorKey?: string }; confirmPassword: { isValid: boolean; errorKey?: string }; isFormValid: boolean } => {
+): {
+  email: { isValid: boolean; errorKey?: string };
+  password: { isValid: boolean; errorKey?: string };
+  confirmPassword: { isValid: boolean; errorKey?: string };
+  isFormValid: boolean;
+} => {
   const emailValidation = validateEmail(email);
   const passwordValidation = validatePassword(password);
-  const confirmPasswordValidation = validateConfirmPassword(password, confirmPassword);
+  const confirmPasswordValidation = validateConfirmPassword(
+    password,
+    confirmPassword
+  );
 
   const isFormValid =
     emailValidation.isValid &&
@@ -72,7 +87,7 @@ export const validateRegistration = (
     email: emailValidation,
     password: passwordValidation,
     confirmPassword: confirmPasswordValidation,
-    isFormValid
+    isFormValid,
   };
 };
 
@@ -80,7 +95,11 @@ export const validateRegistration = (
 export const validateLogin = (
   email: string,
   password: string
-): { email: { isValid: boolean; errorKey?: string }; password: { isValid: boolean; errorKey?: string }; isFormValid: boolean } => {
+): {
+  email: { isValid: boolean; errorKey?: string };
+  password: { isValid: boolean; errorKey?: string };
+  isFormValid: boolean;
+} => {
   const emailValidation = validateEmail(email);
   const passwordValidation = validatePassword(password);
 
@@ -89,7 +108,7 @@ export const validateLogin = (
   return {
     email: emailValidation,
     password: passwordValidation,
-    isFormValid
+    isFormValid,
   };
 };
 
@@ -98,13 +117,23 @@ export const validatePasswordChange = (
   currentPassword: string,
   newPassword: string,
   confirmNewPassword: string
-): { currentPassword: { isValid: boolean; errorKey?: string }; newPassword: { isValid: boolean; errorKey?: string }; confirmNewPassword: { isValid: boolean; errorKey?: string }; isFormValid: boolean } => {
+): {
+  currentPassword: { isValid: boolean; errorKey?: string };
+  newPassword: { isValid: boolean; errorKey?: string };
+  confirmNewPassword: { isValid: boolean; errorKey?: string };
+  isFormValid: boolean;
+} => {
   const currentPasswordValidation = {
     isValid: !!currentPassword,
-    errorKey: currentPassword ? undefined : 'validation.currentPasswordRequired'
+    errorKey: currentPassword
+      ? undefined
+      : 'validation.currentPasswordRequired',
   };
   const newPasswordValidation = validatePassword(newPassword);
-  const confirmNewPasswordValidation = validateConfirmPassword(newPassword, confirmNewPassword);
+  const confirmNewPasswordValidation = validateConfirmPassword(
+    newPassword,
+    confirmNewPassword
+  );
 
   const isFormValid =
     currentPasswordValidation.isValid &&
@@ -115,6 +144,6 @@ export const validatePasswordChange = (
     currentPassword: currentPasswordValidation,
     newPassword: newPasswordValidation,
     confirmNewPassword: confirmNewPasswordValidation,
-    isFormValid
+    isFormValid,
   };
 };
