@@ -4,6 +4,7 @@ import { useAuth } from '../../contexts/AuthContext';
 import { useI18n } from '../../contexts/I18nContext';
 import { validatePasswordChange, validateEmail } from '../../utils/validation';
 import styles from './ProfilePage.module.css';
+import { apiClient } from '../../api/apiClient';
 
 const ProfilePage: React.FC = () => {
   const { user, logout, updateEmail } = useAuth();
@@ -30,7 +31,7 @@ const ProfilePage: React.FC = () => {
     navigate('/login');
   };
 
-  const handleChangePassword = (e: React.FormEvent) => {
+  const handleChangePassword = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
     setSuccess('');
@@ -49,18 +50,26 @@ const ProfilePage: React.FC = () => {
       return;
     }
 
-    // Здесь будет логика смены пароля (обычно через API)
-    // Для демонстрации просто покажем сообщение об успехе
-    setSuccess(t('profile.passwordChanged'));
-    setCurrentPassword('');
-    setNewPassword('');
-    setConfirmNewPassword('');
+    // Вызов API смены пароля
+    try {
+      await apiClient.put('/auth/password', {
+        current_password: currentPassword,
+        new_password: newPassword
+      });
 
-    // Скрыть форму смены пароля через 3 секунды
-    setTimeout(() => {
-      setShowChangePassword(false);
-      setSuccess('');
-    }, 3000);
+      setSuccess(t('profile.passwordChanged'));
+      setCurrentPassword('');
+      setNewPassword('');
+      setConfirmNewPassword('');
+
+      // Скрыть форму смены пароля через 3 секунды
+      setTimeout(() => {
+        setShowChangePassword(false);
+        setSuccess('');
+      }, 3000);
+    } catch (err: any) {
+      setError(err.error || t('profile.passwordChangeFailed'));
+    }
   };
 
   const handleChangeEmail = async (e: React.FormEvent) => {

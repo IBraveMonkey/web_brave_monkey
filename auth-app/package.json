@@ -4,11 +4,9 @@
   "description": "Isolated authentication web application",
   "main": "index.js",
   "scripts": {
-    "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "server": "nodemon",
+    "dev": "vite",
     "client": "vite",
-    "build": "tsc && vite build",
-    "start": "node dist/server.js"
+    "build": "tsc && vite build"
   },
   "keywords": [
     "authentication",

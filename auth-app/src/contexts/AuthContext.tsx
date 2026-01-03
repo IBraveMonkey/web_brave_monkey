@@ -39,10 +39,16 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     try {
       const response = await apiClient.post('/auth/login', credentials);
       if (response.success && response.data) {
-        const { token, user } = response.data as { token: string; user: User };
-        localStorage.setItem('token', token);
-        setUser(user);
-        return true;
+        // Handle both structure formats (accessToken or token)
+        const data = response.data as any;
+        const token = data.accessToken || data.token;
+        const user = data.user;
+
+        if (token) {
+          localStorage.setItem('token', token);
+          setUser(user);
+          return true;
+        }
       }
       return false;
     } catch (error) {
@@ -66,12 +72,17 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       const response = await apiClient.post('/auth/verify-email', { code });
       if (response.success && response.data) {
         // Automatically log in the user after email verification
-        const { token: newToken, user } = response.data as { token: string; user: User };
-        localStorage.setItem('token', newToken);
-        setUser(user);
-        return true;
+        const data = response.data as any;
+        const token = data.accessToken || data.token;
+        const user = data.user;
+
+        if (token) {
+          localStorage.setItem('token', token);
+          setUser(user);
+          return true;
+        }
       }
-      return false;
+      return true; // Return true even if auto-login fails, since verification succeeded
     } catch (error) {
       console.error('Email verification error:', error);
       return false;

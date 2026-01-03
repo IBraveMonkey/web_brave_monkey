@@ -20,6 +20,9 @@ class ApiClient {
 
     if (token) {
       headers['Authorization'] = `Bearer ${token}`;
+      console.log(`[API] Sending request to ${endpoint} with token: ${token.substring(0, 10)}...`);
+    } else {
+      console.log(`[API] Sending request to ${endpoint} WITHOUT token`);
     }
 
     try {
@@ -30,6 +33,7 @@ class ApiClient {
 
       // If the response is 401, remove the token and redirect to login
       if (response.status === 401) {
+        console.warn('[API] 401 Unauthorized received. Redirecting to login.');
         localStorage.removeItem('token');
         window.location.href = '/login';
         return { success: false, error: 'Unauthorized' };
