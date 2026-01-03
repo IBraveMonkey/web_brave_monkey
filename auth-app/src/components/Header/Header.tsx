@@ -22,11 +22,11 @@ const Header: React.FC = () => {
       <div className={styles.navLeft}>
         {user ? (
           <Link to="/dashboard" className={styles.navBrand}>
-            <span role="img" aria-label="gorilla">🦍</span> Brave Monkey
+            <img src="/favicon.ico" alt="Logo" className={styles.logo} /> Brave Monkey
           </Link>
         ) : (
           <Link to="/" className={styles.navBrand}>
-            <span role="img" aria-label="gorilla">🦍</span> Brave Monkey
+            <img src="/favicon.ico" alt="Logo" className={styles.logo} /> Brave Monkey
           </Link>
         )}
       </div>

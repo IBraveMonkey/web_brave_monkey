@@ -36,8 +36,8 @@ const RegisterPage: React.FC = () => {
 
     const success = await register({ email, password });
     if (success) {
-      // Redirect to verification page after successful registration
-      navigate('/verify-email');
+      // Redirect to login page after successful registration (auto-verified)
+      navigate('/login');
     } else {
       setError(t('profile.registrationFailed'));
     }
