@@ -43,6 +43,7 @@ tmp/
 temp/
 
 # Large binaries (downloadable artifacts)
-public/*.zip
-public/*.dmg
-public/*.exe
+public/**/*.zip
+public/**/*.dmg
+public/**/*.exe
+public/**/*.msi
