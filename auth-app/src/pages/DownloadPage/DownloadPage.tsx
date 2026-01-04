@@ -5,12 +5,12 @@ import styles from './DownloadPage.module.css';
 const DownloadPage: React.FC = () => {
   const { t } = useI18n();
 
-  const handleDownload = (platform: 'macOs' | 'win', extension: 'dmg' | 'exe') => {
-    // Путь к файлу в папке public сайта
-    const filePath = `/${platform}/Brave_Monkey.${extension}`;
+  const handleDownload = (platform: 'macOs' | 'win') => {
+    // Скачиваем ZIP архив папки целиком
+    const filePath = `/${platform}.zip`;
     const link = document.createElement('a');
     link.href = filePath;
-    link.download = `Brave_Monkey.${extension}`;
+    link.download = `${platform}.zip`;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -40,7 +40,7 @@ const DownloadPage: React.FC = () => {
           </div>
           <button
             className={styles.downloadButton}
-            onClick={() => handleDownload('macOs', 'dmg')}
+            onClick={() => handleDownload('macOs')}
           >
             {t('download.downloadButton')}
           </button>
@@ -62,7 +62,7 @@ const DownloadPage: React.FC = () => {
           </div>
           <button
             className={styles.downloadButton}
-            onClick={() => handleDownload('win', 'exe')}
+            onClick={() => handleDownload('win')}
           >
             {t('download.downloadButton')}
           </button>
