@@ -1,3 +1,0 @@
-This is the Brave Monkey application for Windows.
-Version: 1.0.0
-Requirements: Windows 10 or later

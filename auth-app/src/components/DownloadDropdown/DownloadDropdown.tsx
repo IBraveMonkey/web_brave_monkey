@@ -6,11 +6,12 @@ import styles from './DownloadDropdown.module.css';
 const DownloadDropdown: React.FC = () => {
   const { t } = useI18n();
 
-  const handleDownload = (fileName: string) => {
-    // Создаем временный элемент ссылки для скачивания файла
+  const handleDownload = (platform: 'macOs' | 'win', extension: 'dmg' | 'exe') => {
+    // Путь к файлу в папке public сайта
+    const filePath = `/${platform}/Brave_Monkey.${extension}`;
     const link = document.createElement('a');
-    link.href = `/bravemonkey${fileName}`;
-    link.download = `bravemonkey${fileName}`;
+    link.href = filePath;
+    link.download = `Brave_Monkey.${extension}`;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -33,7 +34,7 @@ const DownloadDropdown: React.FC = () => {
         </div>
         <button
           className={styles.downloadButton}
-          onClick={() => handleDownload('MacOS.txt')}
+          onClick={() => handleDownload('macOs', 'dmg')}
         >
           {t('download.downloadButton')}
         </button>
@@ -55,7 +56,7 @@ const DownloadDropdown: React.FC = () => {
         </div>
         <button
           className={styles.downloadButton}
-          onClick={() => handleDownload('Win.txt')}
+          onClick={() => handleDownload('win', 'exe')}
         >
           {t('download.downloadButton')}
         </button>
