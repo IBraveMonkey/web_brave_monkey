@@ -1,0 +1,173 @@
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  flex: 1;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.pageTitle {
+  text-align: center;
+  margin-bottom: 30px;
+  color: var(--text-color);
+  font-size: 28px;
+}
+
+.providersGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.categorySection {
+  margin-bottom: 20px;
+}
+
+.categoryTitle {
+  color: var(--text-color);
+  margin-bottom: 15px;
+  font-size: 22px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--primary-color-transparent);
+}
+
+.providersList {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 15px;
+}
+
+.providerCard {
+  background-color: var(--card-bg);
+  border-radius: 12px;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid var(--border-color);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 6px var(--shadow);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.providerCard::before {
+  content: "";
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(
+    45deg,
+    var(--primary-color-light),
+    rgba(16, 185, 129, 0.02),
+    var(--primary-color-light),
+    rgba(16, 185, 129, 0.02)
+  );
+  z-index: -1;
+  border-radius: 10px;
+  opacity: 0.01;
+  background-size: 200% 200%;
+}
+
+.providerCard:hover {
+  border-color: var(--primary-color);
+  box-shadow: 0 8px 16px var(--primary-shadow);
+  transform: scale(1.02);
+}
+
+.providerCard.active {
+  border-left: 4px solid rgb(16, 185, 129);
+}
+
+.providerCard.inactive {
+  border-left: 4px solid #ff6b6b;
+}
+
+.providerInfo {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.serviceIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary-color);
+}
+
+.providerName {
+  color: var(--text-color);
+  font-weight: 500;
+}
+
+.statusIndicator {
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.statusIndicator.active {
+  background-color: var(--primary-color-light);
+  color: var(--primary-color);
+}
+
+.statusIndicator.inactive {
+  background-color: rgba(255, 107, 107, 0.2);
+  color: var(--danger-color);
+}
+
+/* Адаптивные стили для статуса API */
+@media (max-width: 768px) {
+  .container {
+    padding: 15px;
+  }
+
+  .pageTitle {
+    font-size: 24px;
+  }
+
+  .categoryTitle {
+    font-size: 20px;
+  }
+
+  .providerCard {
+    padding: 15px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .providerInfo {
+    width: 100%;
+    justify-content: space-between;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 10px;
+  }
+
+  .pageTitle {
+    font-size: 20px;
+  }
+
+  .categoryTitle {
+    font-size: 18px;
+  }
+
+  .providersList {
+    grid-template-columns: 1fr;
+  }
+
+  .providerCard {
+    padding: 12px;
+  }
+}
