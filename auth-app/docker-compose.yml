@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  web_site:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: brave_monkey_web_site
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+    # Note: Connects to backend via host.docker.internal if backend is not in the same docker network
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
