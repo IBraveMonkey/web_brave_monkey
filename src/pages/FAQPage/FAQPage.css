@@ -1,0 +1,13 @@
+.faq-page {
+  min-height: calc(100vh - 200px); /* Учитываем высоту header и footer */
+  padding: 20px 0;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+@media (max-width: 768px) {
+  .faq-page {
+    padding: 15px 0;
+  }
+}

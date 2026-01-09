@@ -60,6 +60,12 @@ const Header: React.FC = () => {
               >
                 {t("navigation.download")}
               </Link>
+              <Link
+                to="/faq"
+                className={`${styles.navLink} ${isActive("/faq") ? styles.active : ""}`}
+              >
+                {t("navigation.faq")}
+              </Link>
             </>
           ) : (
             <>
@@ -79,6 +85,12 @@ const Header: React.FC = () => {
                   </Link>
                 </>
               )}
+              <Link
+                to="/faq"
+                className={`${styles.navLink} ${isActive("/faq") ? styles.active : ""}`}
+              >
+                {t("navigation.faq")}
+              </Link>
             </>
           )}
         </nav>
