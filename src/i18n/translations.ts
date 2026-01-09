@@ -15,6 +15,7 @@ export const en = {
     apiStatus: "API Status",
     profile: "Profile",
     download: "Download",
+    faq: "FAQ",
   },
   auth: {
     login: "Login",
@@ -170,6 +171,56 @@ export const en = {
     macosRequirements: "Requirements: macOS 10.15 or later",
     downloadButton: "Download",
   },
+  telegramSupport: {
+    title: "Technical Support",
+    description: "You can contact us via Telegram or send a message through the form:",
+    placeholder: "Enter your message...",
+    send: "Send",
+    sending: "Sending...",
+    goToTelegram: "Go to Telegram",
+    close: "Close",
+    openSupportChat: "Open Telegram Support Chat",
+    messageSent: "Message sent! We will contact you on Telegram."
+  },
+  faq: {
+    title: "Frequently Asked Questions",
+    searchPlaceholder: "Search questions...",
+    noResults: "No questions found matching your search",
+    questions: {
+      q1: {
+        question: "Where can I get API keys?",
+        answer: "Register on OpenRouter, Groq Cloud, Google AI Studio or Hugging Face Settings. Keys are entered directly in the app interface (Settings)."
+      },
+      q2: {
+        question: "Why does Groq return 403?",
+        answer: "Groq blocks requests from Russia/Belarus. Make sure your Xray config or Happ app is working correctly. The backend logs status: 'Internal Xray is UP'."
+      },
+      q3: {
+        question: "How do I run the backend?",
+        answer: "To run the backend, you need to: 1) Get access from the administrator, 2) Login to GitHub Container Registry with your token, 3) Pull the image: docker pull ghcr.io/ibravemonkey/brave-monkey-backend:latest, 4) Run with Docker Compose using the provided docker-compose.yml file."
+      },
+      q4: {
+        question: "What are the key features of Brave Monkey?",
+        answer: "Smart LLM Orchestration, Zero-Config Backend, Smart Proxy Guard, Stealth Overlay (macOS), Local Privacy, and Groq STT."
+      },
+      q5: {
+        question: "How does the Smart Proxy work?",
+        answer: "The system automatically determines the optimal path for your requests. If you have Happ running (or any app with SOCKS5 on port 1088), requests go through it. If Happ is off, the backend starts Xray inside the container."
+      },
+      q6: {
+        question: "What are the system requirements?",
+        answer: "Docker & Docker Compose, Node.js (LTS) & npm. For macOS, you'll also need the overlay helper in the bin/ folder."
+      },
+      q7: {
+        question: "How do I configure API keys?",
+        answer: "After running the backend, create a .env file in the same directory with your API keys (GEMINI_API_KEY, GROQ_API_KEY, etc.) and restart the service with 'docker compose up -d'."
+      },
+      q8: {
+        question: "How does audio support work?",
+        answer: "The app supports speech recognition via Groq API with automatic fallback to backup providers (Deepgram, AssemblyAI) if the main service is unavailable. If all audio services are unavailable, the app automatically switches to text input mode."
+      }
+    }
+  },
 };
 
 // Russian translations
@@ -189,6 +240,7 @@ export const ru = {
     apiStatus: "Статус API",
     profile: "Профиль",
     download: "Скачать",
+    faq: "FAQ",
   },
   auth: {
     login: "Вход",
@@ -345,5 +397,55 @@ export const ru = {
     windowsRequirements: "Требования: Windows 10 или новее",
     macosRequirements: "Требования: macOS 10.15 или новее",
     downloadButton: "Скачать",
+  },
+  telegramSupport: {
+    title: "Техническая поддержка",
+    description: "Вы можете связаться с нами через Telegram или отправить сообщение через форму:",
+    placeholder: "Введите ваше сообщение...",
+    send: "Отправить",
+    sending: "Отправка...",
+    goToTelegram: "Перейти в Telegram",
+    close: "Закрыть",
+    openSupportChat: "Открыть чат поддержки Telegram",
+    messageSent: "Сообщение отправлено! Мы свяжемся с вами в Telegram."
+  },
+  faq: {
+    title: "Часто задаваемые вопросы",
+    searchPlaceholder: "Поиск вопросов...",
+    noResults: "Не найдено вопросов, соответствующих вашему запросу",
+    questions: {
+      q1: {
+        question: "Где можно получить API-ключи?",
+        answer: "Зарегистрируйтесь на OpenRouter, Groq Cloud, Google AI Studio или Hugging Face Settings. Ключи вводятся непосредственно в интерфейсе приложения (Настройки)."
+      },
+      q2: {
+        question: "Почему Groq возвращает 403?",
+        answer: "Groq блокирует запросы из России/Беларуси. Убедитесь, что ваша конфигурация Xray или приложение Happ работает корректно. Бэкенд логирует статус: 'Internal Xray is UP'."
+      },
+      q3: {
+        question: "Как запустить бэкенд?",
+        answer: "Для запуска бэкенда необходимо: 1) Получить доступ от администратора, 2) Войти в GitHub Container Registry с помощью токена, 3) Загрузить образ: docker pull ghcr.io/ibravemonkey/brave-monkey-backend:latest, 4) Запустить с помощью Docker Compose, используя предоставленный файл docker-compose.yml."
+      },
+      q4: {
+        question: "Каковы ключевые особенности Brave Monkey?",
+        answer: "Умная оркестрация LLM, бэкенд без настройки, защита умного прокси, скрытый оверлей (macOS), локальная конфиденциальность и Groq STT."
+      },
+      q5: {
+        question: "Как работает умный прокси?",
+        answer: "Система автоматически определяет оптимальный путь для ваших запросов. Если у вас запущен Happ (или любое приложение с SOCKS5 на порту 1088), запросы проходят через него. Если Happ выключен, бэкенд запускает Xray внутри контейнера."
+      },
+      q6: {
+        question: "Каковы системные требования?",
+        answer: "Docker & Docker Compose, Node.js (LTS) & npm. Для macOS вам также понадобится помощник оверлея в папке bin/."
+      },
+      q7: {
+        question: "Как настроить API-ключи?",
+        answer: "После запуска бэкенда создайте файл .env в той же директории с вашими API-ключами (GEMINI_API_KEY, GROQ_API_KEY и т.д.) и перезапустите сервис командой 'docker compose up -d'."
+      },
+      q8: {
+        question: "Как работает поддержка аудио?",
+        answer: "Приложение поддерживает распознавание речи через Groq API с автоматическим переключением на резервных поставщиков (Deepgram, AssemblyAI) в случае недоступности основного сервиса. Если все аудио-сервисы недоступны, приложение автоматически переходит в режим текстового ввода."
+      }
+    }
   },
 };

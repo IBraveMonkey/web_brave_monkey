@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useI18n } from "../../contexts/I18nContext";
 import styles from "./LandingPage.module.css";
 import ChatDemo from "../../components/ChatDemo/ChatDemo";
+import FAQ from "../../components/FAQ/FAQ";
 
 const LandingPage: React.FC = () => {
   const { t } = useI18n();
@@ -163,6 +164,11 @@ const LandingPage: React.FC = () => {
         >
           {t("landing.getStarted")}
         </Link>
+      </section>
+
+      {/* FAQ Section */}
+      <section className={styles.faqSection}>
+        <FAQ />
       </section>
     </div>
   );

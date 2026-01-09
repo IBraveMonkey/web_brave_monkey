@@ -5,6 +5,7 @@ import { ThemeProvider } from "./contexts/ThemeContext";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 import Footer from "./components/Footer/Footer";
 import Header from "./components/Header/Header";
+import TelegramSupport from "./components/TelegramSupport/TelegramSupport";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import RegisterPage from "./pages/RegisterPage/RegisterPage";
 import VerifyEmailPage from "./pages/VerifyEmailPage/VerifyEmailPage";
@@ -16,6 +17,7 @@ import ForgotPasswordPage from "./pages/ForgotPasswordPage/ForgotPasswordPage";
 import ResetPasswordPage from "./pages/ResetPasswordPage/ResetPasswordPage";
 import DownloadPage from "./pages/DownloadPage/DownloadPage";
 import LandingPage from "./pages/LandingPage/LandingPage";
+import FAQPage from "./pages/FAQPage/FAQPage";
 
 function App() {
   return (
@@ -72,9 +74,11 @@ function App() {
                       </ProtectedRoute>
                     }
                   />
+                  <Route path="/faq" element={<FAQPage />} />
                 </Routes>
               </div>
               <Footer />
+              <TelegramSupport />
             </div>
           </Router>
         </ThemeProvider>
