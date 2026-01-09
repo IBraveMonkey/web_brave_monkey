@@ -1,14 +1,14 @@
 @font-face {
-  font-family: "Martian Mono";
-  src: url("/MartianMono/MartianMonoNerdFont-Regular.ttf") format("truetype");
+  font-family: "JetBrains Mono";
+  src: url("/Fonts/JetBrainsMono-2/fonts/ttf/JetBrainsMono-Regular.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: "Martian Mono";
-  src: url("/MartianMono/MartianMonoNerdFont-Bold.ttf") format("truetype");
+  font-family: "JetBrains Mono";
+  src: url("/Fonts/JetBrainsMono-2/fonts/ttf/JetBrainsMono-Bold.ttf") format("truetype");
   font-weight: bold;
   font-style: normal;
   font-display: swap;
@@ -89,7 +89,7 @@
 }
 
 body {
-  font-family: "Martian Mono", monospace;
+  font-family: "JetBrains Mono", monospace;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: var(--bg-color);
